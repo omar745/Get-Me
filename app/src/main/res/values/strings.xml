@@ -1,3 +1,13 @@
 <resources>
-    <string name="app_name">Get Me...</string>
+    <string name="app_name">Get Me…</string>
+
+    <!--Facebook code-->
+    <string name="facebook_app_id" translatable="false">151569875678530</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb151569875678530</string>
+
+    <!--Facebook login activity's strings-->
+    <string name="welcome_title">Welcome</string>
+    <string name="welcome_subtitle">To login the app, you need to use your Facebook account.
+                \nWe use it to quickly connect you with your friends</string>
+
 </resources>
