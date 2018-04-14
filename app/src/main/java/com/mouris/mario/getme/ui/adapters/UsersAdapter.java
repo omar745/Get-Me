@@ -1,11 +1,15 @@
 package com.mouris.mario.getme.ui.adapters;
 
+import android.content.Context;
+import android.graphics.PorterDuff;
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.mikhaellopez.circularimageview.CircularImageView;
@@ -58,6 +62,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHold
             notificationsAllowed = mNotificationsList.get(user.id);
         }
 
+        userVh.setUpMuteButton(notificationsAllowed);
         userVh.nameTv.setText(user.display_name);
         Picasso.get().load(user.profile_picture)
                 .resize(200, 200)
@@ -66,8 +71,8 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHold
         userVh.itemView.setOnClickListener(view -> mItemListener.onItemClicked(user));
 
         boolean finalNotificationsAllowed = notificationsAllowed;
-        userVh.notificationsButton.setOnClickListener(view ->
-                mItemListener.onNotificationsButtonClicked(user.id, !finalNotificationsAllowed));
+        userVh.muteButton.setOnClickListener(view ->
+                mItemListener.onMuteButtonClicked(user.id, !finalNotificationsAllowed));
     }
 
     @Override
@@ -81,21 +86,41 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHold
 
     public static class UserViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.picture_imageView)
-        CircularImageView pictureIv;
-        @BindView(R.id.name_textView)
-        TextView nameTv;
-        @BindView(R.id.notifiactions_button)
-        ImageButton notificationsButton;
+        @BindView(R.id.picture_imageView) CircularImageView pictureIv;
+        @BindView(R.id.name_textView) TextView nameTv;
+        @BindView(R.id.muteButton) Button muteButton;
+
+        private Context mContext;
+
 
         UserViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+
+            mContext = itemView.getContext();
+        }
+
+        void setUpMuteButton(boolean notificationsAllowed) {
+            if (notificationsAllowed) {
+                muteButton.setText(R.string.mute_button);
+                if (Build.VERSION.SDK_INT >= 21) {
+                    muteButton.getBackground().setColorFilter(
+                            ContextCompat.getColor(mContext, R.color.colorAccent),
+                            PorterDuff.Mode.MULTIPLY);
+                }
+            } else {
+                muteButton.setText(R.string.unmute_button);
+                if (Build.VERSION.SDK_INT >= 21) {
+                    muteButton.getBackground().setColorFilter(
+                            ContextCompat.getColor(mContext, R.color.colorPrimary),
+                            PorterDuff.Mode.MULTIPLY);
+                }
+            }
         }
 
         public interface OnItemClickListener {
             void onItemClicked(User user);
-            void onNotificationsButtonClicked(String friendId, boolean notificationsAllowed);
+            void onMuteButtonClicked(String friendId, boolean notificationsAllowed);
         }
     }
 }

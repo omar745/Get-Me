@@ -21,6 +21,8 @@
 
     <!--User item's strings-->
     <string name="user_name_place_holder">User name</string>
+    <string name="mute_button">Mute</string>
+    <string name="unmute_button">Unmute</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->

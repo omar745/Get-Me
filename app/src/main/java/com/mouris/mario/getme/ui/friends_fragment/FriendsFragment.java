@@ -59,7 +59,7 @@ public class FriendsFragment extends Fragment
     }
 
     @Override
-    public void onNotificationsButtonClicked(String friendId, boolean notificationsAllowed) {
+    public void onMuteButtonClicked(String friendId, boolean notificationsAllowed) {
 
     }
 }
