@@ -1,15 +1,22 @@
 package com.mouris.mario.getme.ui;
 
+import android.content.Intent;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
+import com.facebook.login.LoginManager;
+import com.google.firebase.auth.FirebaseAuth;
 import com.mouris.mario.getme.R;
+import com.mouris.mario.getme.data.repositories.GeneralRepository;
 import com.mouris.mario.getme.ui.adapters.MainFragmentsPagerAdapter;
 import com.mouris.mario.getme.ui.friends_fragment.FriendsFragment;
 import com.mouris.mario.getme.ui.home_fragment.HomeFragment;
 import com.mouris.mario.getme.ui.birthdays_fragment.BirthdaysFragment;
+import com.mouris.mario.getme.ui.welcome_screens.FacebookLoginActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,6 +34,10 @@ public class MainActivity extends AppCompatActivity {
 
         //Initialize the bottom navigation
         setupBottomNavigation();
+
+        //Update facebook friends list
+        GeneralRepository generalRepository = GeneralRepository.getInstance();
+        generalRepository.updateFacebookFriends();
     }
 
     private void setupBottomNavigation() {
@@ -89,5 +100,26 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_logout) {
+            FirebaseAuth.getInstance().signOut();
+            LoginManager.getInstance().logOut();
+            Intent facebookLoginIntent = new Intent(this, FacebookLoginActivity.class);
+            facebookLoginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(facebookLoginIntent);
+            finish();
+
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

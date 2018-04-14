@@ -12,6 +12,9 @@ import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.Profile;
 import com.facebook.internal.CallbackManagerImpl;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
@@ -20,7 +23,13 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.mouris.mario.getme.R;
+import com.mouris.mario.getme.data.actors.User;
+import com.mouris.mario.getme.data.repositories.GeneralRepository;
 import com.mouris.mario.getme.ui.MainActivity;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,8 +37,11 @@ import butterknife.ButterKnife;
 public class FacebookLoginActivity extends AppCompatActivity {
     private static final String LOG_TAG = FacebookLoginActivity.class.getSimpleName();
 
+    private static final int FACEBOOK_PROFILE_SIZE = 300;
+
     private FirebaseAuth mAuth;
     private CallbackManager mCallbackManager;
+    private GeneralRepository mGeneralRepository;
     @BindView(R.id.loginButton) LoginButton mLoginButton;
     @BindView(R.id.progressBar) ProgressBar mProgressBar;
 
@@ -41,10 +53,11 @@ public class FacebookLoginActivity extends AppCompatActivity {
 
         //Firebase Auth code
         mAuth = FirebaseAuth.getInstance();
+        mGeneralRepository = GeneralRepository.getInstance();
 
         //Facebook Login code
         mCallbackManager = CallbackManager.Factory.create();
-        mLoginButton.setReadPermissions("public_profile", "email");
+        mLoginButton.setReadPermissions("public_profile", "email", "user_friends");
         mLoginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
@@ -74,14 +87,8 @@ public class FacebookLoginActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         // Sign in success, update UI with the signed-in user's information
                         Log.i(LOG_TAG, "signInWithCredential:success");
-                        FirebaseUser user = mAuth.getCurrentUser();
 
-                        //Redirect user to main activity
-                        Intent mainIntent = new Intent(this, MainActivity.class);
-                        mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(mainIntent);
-                        finish();
-
+                        routeToAppropriateActivity();
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.e(LOG_TAG, "signInWithCredential:failure", task.getException());
@@ -91,6 +98,49 @@ public class FacebookLoginActivity extends AppCompatActivity {
 
                     setLoading(false);
                 });
+    }
+
+    private void routeToAppropriateActivity() {
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null && Profile.getCurrentProfile() != null) {
+            mGeneralRepository.getUserById(currentUser.getUid()).observe(this, user -> {
+                if (user != null) {
+                    //A user object is already created, go inside the app
+                    Log.i(LOG_TAG, "User is logged in and registered");
+                    Intent mainIntent = new Intent(this, MainActivity.class);
+                    mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(mainIntent);
+                    finish();
+                } else {
+                    //No user object is found, create one
+                    Log.i(LOG_TAG, "No user object found");
+
+                    User newUser = new User();
+                    newUser.display_name = currentUser.getDisplayName();
+                    newUser.facebook_link = Profile.getCurrentProfile().getLinkUri().toString();
+                    newUser.profile_picture = Profile.getCurrentProfile()
+                            .getProfilePictureUri(FACEBOOK_PROFILE_SIZE, FACEBOOK_PROFILE_SIZE).toString();
+
+                    String currentUserId = Profile.getCurrentProfile().getId();
+                    mGeneralRepository.createNewUser(currentUserId, newUser,
+                            ((databaseError, databaseReference) -> {
+
+                                if (databaseError == null) {
+                                    Intent mainIntent = new Intent(this, MainActivity.class);
+                                    mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(mainIntent);
+                                    finish();
+                                } else {
+                                    Log.e(LOG_TAG, "There was an error creating new user object", databaseError.toException());
+                                }
+
+                            }));
+                }
+            });
+
+        } else {
+            Log.e(LOG_TAG, "The current user equals null");
+        }
     }
 
     private void setLoading(boolean isLoading) {
