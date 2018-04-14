@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.birthdays_fragment.BirthdaysFragment">
+    tools:context=".ui.events_fragment.EventsFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView

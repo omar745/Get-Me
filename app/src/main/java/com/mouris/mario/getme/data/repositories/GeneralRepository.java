@@ -45,8 +45,8 @@ public class GeneralRepository {
         return mUsersRepository.getUsersLiveData();
     }
 
-    public LiveData<List<User>> getFriendsUsersList(Set<String> listOfIds, String ownerUserId) {
-        return mUsersRepository.getFriendsUsersList(listOfIds, getCurrentUserId(), ownerUserId);
+    public LiveData<List<User>> getUsersByIdsList(Set<String> listOfIds) {
+        return mUsersRepository.getUsersByIdsList(listOfIds);
     }
 
     public LiveData<User> getUserById(String userId) {

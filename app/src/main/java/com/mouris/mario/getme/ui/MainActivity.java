@@ -15,7 +15,7 @@ import com.mouris.mario.getme.data.repositories.GeneralRepository;
 import com.mouris.mario.getme.ui.adapters.MainFragmentsPagerAdapter;
 import com.mouris.mario.getme.ui.friends_fragment.FriendsFragment;
 import com.mouris.mario.getme.ui.home_fragment.HomeFragment;
-import com.mouris.mario.getme.ui.birthdays_fragment.BirthdaysFragment;
+import com.mouris.mario.getme.ui.events_fragment.EventsFragment;
 import com.mouris.mario.getme.ui.welcome_screens.FacebookLoginActivity;
 
 import butterknife.BindView;
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         MainFragmentsPagerAdapter adapter =
                 new MainFragmentsPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new HomeFragment());
-        adapter.addFragment(new BirthdaysFragment());
+        adapter.addFragment(new EventsFragment());
         adapter.addFragment(new FriendsFragment());
 
         mViewPager.setAdapter(adapter);
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
                         setTitle(R.string.home_title);
                         break;
                     case 1:
-                        setTitle(R.string.birthdays_title);
+                        setTitle(R.string.events_title);
                         break;
                     case 2:
                         setTitle(R.string.friends_title);

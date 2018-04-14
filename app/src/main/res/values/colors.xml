@@ -6,4 +6,5 @@
 
     <color name="colorTextPrimary">#FFFFFF</color>
     <color name="colorLightGrey">#e0e0e0</color>
+    <color name="colorGrey">#d3d3d3</color>
 </resources>

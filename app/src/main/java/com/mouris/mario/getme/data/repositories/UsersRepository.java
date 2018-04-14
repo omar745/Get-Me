@@ -65,8 +65,7 @@ public class UsersRepository {
     }
 
     //A method to retrieve a specific list of users
-    LiveData<List<User>> getFriendsUsersList(Set<String> listOfIds,
-                                                String currentUserId, String ownerUserId) {
+    LiveData<List<User>> getUsersByIdsList(Set<String> listOfIds) {
         LiveData<List<User>> listOfUsersLiveData;
         FirebaseQueryLiveData dataSnapshotsLiveData = new FirebaseQueryLiveData(mUsersDbReference);
         listOfUsersLiveData = Transformations.map(dataSnapshotsLiveData, dataSnapshots -> {
@@ -76,9 +75,7 @@ public class UsersRepository {
                     User newUser = userSnapshot.getValue(User.class);
                     if (newUser != null) {
                         newUser.id = userSnapshot.getKey();
-                        if (listOfIds.contains(newUser.id)
-                                && !newUser.id.equals(currentUserId)
-                                && !newUser.id.equals(ownerUserId)) {
+                        if (listOfIds.contains(newUser.id)) {
                             usersList.add(newUser);
                         }
                     }
