@@ -3,6 +3,7 @@ package com.mouris.mario.getme.ui.wishlist_editor_activity;
 import android.app.DatePickerDialog;
 import android.arch.lifecycle.ViewModelProviders;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 import com.mouris.mario.getme.R;
 import com.mouris.mario.getme.data.actors.WishList;
 import com.mouris.mario.getme.ui.adapters.GiftsAdapter;
+import com.mouris.mario.getme.ui.gift_editor_dialog.GiftEditorDialog;
 
 import java.util.Calendar;
 
@@ -89,7 +91,8 @@ public class WishListEditorActivity extends AppCompatActivity
 
     @OnClick(R.id.add_gift_button)
     void addGiftButtonClicked() {
-
+        DialogFragment giftDialog = new GiftEditorDialog();
+        giftDialog.show(getSupportFragmentManager(), GiftEditorDialog.DIALOG_TAG);
     }
 
     @OnClick(R.id.choose_date_button)

@@ -3,12 +3,12 @@ package com.mouris.mario.getme.ui.gift_editor_dialog;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.DialogFragment;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.InsetDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -17,6 +17,7 @@ import com.mouris.mario.getme.R;
 
 import butterknife.ButterKnife;
 
+//TODO: Fix glitch when keyboard shows (Wrap content scrollview)
 public class GiftEditorDialog extends DialogFragment {
     public static final String DIALOG_TAG = "gift_editor_dialog_tag";
 

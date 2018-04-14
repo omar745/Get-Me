@@ -60,6 +60,15 @@
     <string name="add_gift_button">Add Gift</string>
     <string name="empty_gifts">No gifts added</string>
 
+
+    <!--Gift editor dialog's strings-->
+    <string name="gift_editor_title">What do you want?</string>
+    <string name="gift_name_hint">Gift Name</string>
+    <string name="gift_brand_hint">Brand</string>
+    <string name="gift_description_hint">Description</string>
+    <string name="gift_web_link_hint">Web link</string>
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
