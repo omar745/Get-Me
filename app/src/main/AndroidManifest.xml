@@ -3,10 +3,10 @@
     package="com.mouris.mario.getme">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:name=".GetMeApplication"
@@ -50,11 +50,15 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.welcome_screens.FacebookLoginActivity"
-            android:theme="@style/AppTheme.WelcomePage"/>
+        <activity
+            android:name=".ui.welcome_screens.FacebookLoginActivity"
+            android:theme="@style/AppTheme.WelcomePage" />
 
-        <activity android:name=".ui.MainActivity" />
+        <activity android:name=".ui.MainActivity"
+            android:launchMode="singleTop" />
 
+        <activity android:name=".ui.wishlist_editor_activity.WishListEditorActivity"
+            android:parentActivityName=".ui.MainActivity"/>
     </application>
 
 </manifest>

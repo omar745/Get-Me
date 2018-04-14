@@ -17,6 +17,7 @@ import com.mouris.mario.getme.ui.friends_fragment.FriendsFragment;
 import com.mouris.mario.getme.ui.home_fragment.HomeFragment;
 import com.mouris.mario.getme.ui.events_fragment.EventsFragment;
 import com.mouris.mario.getme.ui.welcome_screens.FacebookLoginActivity;
+import com.mouris.mario.getme.ui.wishlist_editor_activity.WishListEditorActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -119,6 +120,9 @@ public class MainActivity extends AppCompatActivity {
             finish();
 
             return true;
+        } else if (item.getItemId() == R.id.action_add_wishlist) {
+            Intent addWishListIntent = new Intent(this, WishListEditorActivity.class);
+            startActivity(addWishListIntent);
         }
         return super.onOptionsItemSelected(item);
     }

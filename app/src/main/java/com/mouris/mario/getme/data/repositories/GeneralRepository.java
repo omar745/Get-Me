@@ -6,9 +6,9 @@ import android.util.Log;
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
 import com.facebook.Profile;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.mouris.mario.getme.data.actors.User;
+import com.mouris.mario.getme.data.actors.WishList;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,8 +22,7 @@ public class GeneralRepository {
     private static final String LOG_TAG = GeneralRepository.class.getSimpleName();
 
     private UsersRepository mUsersRepository;
-
-    private FirebaseAuth mAuth;
+    private WishListsRepository mWishListsRepository;
 
     private static GeneralRepository sInstance;
 
@@ -36,8 +35,9 @@ public class GeneralRepository {
 
     private GeneralRepository() {
         mUsersRepository = UsersRepository.getInstance();
-        mAuth = FirebaseAuth.getInstance();
+        mWishListsRepository = WishListsRepository.getInstance();
     }
+
 
     //----------------------------------------------------------------------------------------------
     //Users repository code
@@ -73,6 +73,28 @@ public class GeneralRepository {
         mUsersRepository.setNotificationsAllowedForFriend(getCurrentUserId(), friendId,
                 notificationsAllowed, completionListener);
     }
+
+
+    //----------------------------------------------------------------------------------------------
+    //WishLists repository Code
+    public LiveData<List<WishList>> getWishLists(Set<String> friendsIds) {
+        return mWishListsRepository.getWishListsLiveData(friendsIds);
+    }
+
+    public LiveData<WishList> getWishListById(String wishListId) {
+        return mWishListsRepository.getWishListLiveDataById(wishListId);
+    }
+
+    public void deleteWishListFromFirebase(String wishListId,
+                                           DatabaseReference.CompletionListener completionListener) {
+        mWishListsRepository.deleteWishListFromFirebase(wishListId, completionListener);
+    }
+
+    public void pushWishListToFirebase(WishList wishList,
+                                       DatabaseReference.CompletionListener completionListener) {
+        mWishListsRepository.pushWishListToFirebase(wishList, completionListener);
+    }
+
 
     //----------------------------------------------------------------------------------------------
     //Facebook Code
