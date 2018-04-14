@@ -67,6 +67,12 @@ public class GeneralRepository {
         mUsersRepository.pushFriendsList(userId, friendsList, completionListener);
     }
 
+    public void setNotificationsAllowedForFriend(String friendId, boolean notificationsAllowed,
+                                                 DatabaseReference.CompletionListener
+                                                         completionListener) {
+        mUsersRepository.setNotificationsAllowedForFriend(getCurrentUserId(), friendId,
+                notificationsAllowed, completionListener);
+    }
 
     //----------------------------------------------------------------------------------------------
     //Facebook Code

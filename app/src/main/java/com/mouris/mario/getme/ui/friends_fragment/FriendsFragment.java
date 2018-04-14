@@ -3,6 +3,7 @@ package com.mouris.mario.getme.ui.friends_fragment;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -60,6 +61,25 @@ public class FriendsFragment extends Fragment
 
     @Override
     public void onMuteButtonClicked(String friendId, boolean notificationsAllowed) {
-
+        mViewModel.setNotificationsAllowedForFriend(friendId, notificationsAllowed,
+                (databaseError, databaseReference) -> {
+            if (databaseError == null) {
+                if (!notificationsAllowed) {
+                    Snackbar.make(mFriendsRv, R.string.muted_friend_successfully,
+                            Snackbar.LENGTH_SHORT).show();
+                } else {
+                    Snackbar.make(mFriendsRv, R.string.unmuted_friend_successfully,
+                            Snackbar.LENGTH_SHORT).show();
+                }
+            } else {
+                if (!notificationsAllowed) {
+                    Snackbar.make(mFriendsRv, R.string.failed_to_mute_friend,
+                            Snackbar.LENGTH_SHORT).show();
+                } else {
+                    Snackbar.make(mFriendsRv, R.string.failed_to_unmute_friend,
+                            Snackbar.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 }

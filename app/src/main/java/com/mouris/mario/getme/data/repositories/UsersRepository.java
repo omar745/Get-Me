@@ -127,4 +127,11 @@ public class UsersRepository {
         mUsersDbReference.child(userId)
                 .child(User.FRIENDS_LIST).setValue(friendsList, completionListener);
     }
+
+    void setNotificationsAllowedForFriend(String currentUser,
+                                          String friendId, boolean notificationsAllowed,
+                                          DatabaseReference.CompletionListener completionListener) {
+        mUsersDbReference.child(currentUser).child(User.FRIENDS_LIST)
+                .child(friendId).setValue(notificationsAllowed, completionListener);
+    }
 }

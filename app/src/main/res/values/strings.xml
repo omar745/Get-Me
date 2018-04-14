@@ -25,6 +25,13 @@
     <string name="unmute_button">Unmute</string>
 
 
+    <!--Friends fragment's strings-->
+    <string name="muted_friend_successfully">Muted friend successfully</string>
+    <string name="unmuted_friend_successfully">Unmuted friend successfully</string>
+    <string name="failed_to_mute_friend">Failed to mute friend. Try again later</string>
+    <string name="failed_to_unmute_friend">Failed to unmute friend. Try again later</string>
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

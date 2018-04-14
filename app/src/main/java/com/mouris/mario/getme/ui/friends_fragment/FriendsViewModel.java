@@ -3,6 +3,7 @@ package com.mouris.mario.getme.ui.friends_fragment;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
 
+import com.google.firebase.database.DatabaseReference;
 import com.mouris.mario.getme.data.actors.User;
 import com.mouris.mario.getme.data.repositories.GeneralRepository;
 
@@ -22,5 +23,11 @@ public class FriendsViewModel extends ViewModel {
 
     LiveData<User> getCurrentUser() {
         return mRepository.getUserById(mRepository.getCurrentUserId());
+    }
+
+    void setNotificationsAllowedForFriend(String friendId, boolean notificationsAllowed,
+                                          DatabaseReference.CompletionListener completionListener) {
+        mRepository.setNotificationsAllowedForFriend(friendId,
+                notificationsAllowed, completionListener);
     }
 }
