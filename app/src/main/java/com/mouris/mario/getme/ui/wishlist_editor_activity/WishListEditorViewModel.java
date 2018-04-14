@@ -9,6 +9,7 @@ public class WishListEditorViewModel extends ViewModel {
 
     private GeneralRepository mRepository;
     WishList wishList;
+    String eventDate;
 
     public WishListEditorViewModel() {
         mRepository = GeneralRepository.getInstance();

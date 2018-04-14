@@ -68,6 +68,10 @@ public class WishListEditorActivity extends AppCompatActivity
             }
         }
 
+        //Set date string if not null
+        if (mViewModel.eventDate != null) {
+            mDateTv.setText(mViewModel.eventDate);
+        }
 
         //On item selected listener for spinner (Called when activity is created)
         mEventTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -99,10 +103,12 @@ public class WishListEditorActivity extends AppCompatActivity
             Calendar calendar = Calendar.getInstance();
             calendar.set(year, month, dayOfMonth);
 
-            mViewModel.wishList.event_time = calendar.getTimeInMillis();
-
             String dateString = "("+dayOfMonth+"/"+(month+1)+"/"+year+")";
             mDateTv.setText(dateString);
+
+            mViewModel.wishList.event_time = calendar.getTimeInMillis();
+            mViewModel.eventDate = dateString;
+
             Snackbar.make(mGiftsRv,
                     "Event time is set to " + dateString, Snackbar.LENGTH_LONG).show();
         }, currentTime.get(Calendar.YEAR),
