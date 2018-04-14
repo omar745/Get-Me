@@ -1,6 +1,7 @@
 package com.mouris.mario.getme.ui.wishlist_editor_activity;
 
 import android.app.DatePickerDialog;
+import android.arch.lifecycle.ViewModelProviders;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -35,7 +36,7 @@ public class WishListEditorActivity extends AppCompatActivity
     @BindView(R.id.gifts_recyclerView) RecyclerView mGiftsRv;
 
     private GiftsAdapter mGiftsAdapter;
-    private WishList mWishList;
+    private WishListEditorViewModel mViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +47,9 @@ public class WishListEditorActivity extends AppCompatActivity
         //Set title of activity
         setTitle(R.string.wishlist_editor_title);
 
+        //Initiate ViewModel
+        mViewModel = ViewModelProviders.of(this).get(WishListEditorViewModel.class);
+
 
         //Initiate gifts recyclerView
         mGiftsRv.setLayoutManager(new LinearLayoutManager(this));
@@ -53,13 +57,15 @@ public class WishListEditorActivity extends AppCompatActivity
         mGiftsRv.setAdapter(mGiftsAdapter);
 
 
-        //Check if in editing or creation mode
-        if (getIntent().hasExtra(WISH_LIST_EXTRA)) {
-            //In editing mode
+        //Check if in editing or creation mode (Check if WishList is null first)
+        if (mViewModel.wishList == null) {
+            if (getIntent().hasExtra(WISH_LIST_EXTRA)) {
+                //In editing mode
 
-        } else {
-            //In creation mode
-            mWishList = new WishList();
+            } else {
+                //In creation mode
+                mViewModel.wishList = new WishList();
+            }
         }
 
 
@@ -67,7 +73,7 @@ public class WishListEditorActivity extends AppCompatActivity
         mEventTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                mWishList.event_type = mEventTypeSpinner.getSelectedItem().toString();
+                mViewModel.wishList.event_type = mEventTypeSpinner.getSelectedItem().toString();
             }
 
             @Override
@@ -79,7 +85,7 @@ public class WishListEditorActivity extends AppCompatActivity
 
     @OnClick(R.id.add_gift_button)
     void addGiftButtonClicked() {
-        
+
     }
 
     @OnClick(R.id.choose_date_button)
@@ -93,7 +99,7 @@ public class WishListEditorActivity extends AppCompatActivity
             Calendar calendar = Calendar.getInstance();
             calendar.set(year, month, dayOfMonth);
 
-            mWishList.event_time = calendar.getTimeInMillis();
+            mViewModel.wishList.event_time = calendar.getTimeInMillis();
 
             String dateString = "("+dayOfMonth+"/"+(month+1)+"/"+year+")";
             mDateTv.setText(dateString);
