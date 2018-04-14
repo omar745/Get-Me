@@ -33,6 +33,24 @@
     <string name="failed_to_unmute_friend">Failed to unmute friend. Try again later</string>
 
 
+    <!--WishList editor's strings-->
+    <string name="save_wishlist">Save</string>
+    <string name="wishlist_editor_title">WishList Editor</string>
+    <string name="event_card_title">Event Description</string>
+    <string name="event_type_label">Event type:</string>
+    <array name="event_types">
+        <item>Birthday</item>
+        <item>Wedding</item>
+        <item>Engagement</item>
+        <item>Baby Shower</item>
+    </array>
+    <string name="event_date_label">Event date:</string>
+    <string name="choose_date_button">Choose Date</string>
+    <string name="date_placeholder">No date is picked yet</string>
+    <string name="gifts_card_title">Gifts List</string>
+    <string name="add_gift_button">Add Gift</string>
+    <string name="empty_gifts">No gifts added</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
