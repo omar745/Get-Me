@@ -2,15 +2,14 @@ package com.mouris.mario.getme.data.actors;
 
 public class Gift extends Actor {
 
-    public String title, category, brand, model, description;
+    public String gift_name, description, web_link, brand;
 
     public Gift() { }
 
-    public Gift(String title, String category, String brand, String model, String description) {
-        this.title = title;
-        this.category = category;
+    public Gift(String gift_name, String web_link, String brand, String description) {
+        this.gift_name = gift_name;
+        this.web_link = web_link;
         this.brand = brand;
-        this.model = model;
         this.description = description;
     }
 }

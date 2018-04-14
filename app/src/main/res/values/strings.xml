@@ -24,7 +24,14 @@
     <string name="user_name_place_holder">User name</string>
     <string name="mute_button">Mute</string>
     <string name="unmute_button">Unmute</string>
-
+    
+    
+    <!--Gift item's strings-->
+    <string name="gift_name_placeholder">Gift Name</string>
+    <string name="gift_description_placeholder">A gift description, it\'s a gift that I want that
+        has some properties. These are some of them (Like size color or place to buy)</string>
+    <string name="gift_brand_placeholder">Brand</string>
+    <string name="gift_web_link_placeholder">https://play.anghami.com/playlist/31334698</string>
 
     <!--Friends fragment's strings-->
     <string name="muted_friend_successfully">Muted friend successfully</string>
@@ -43,6 +50,8 @@
         <item>Wedding</item>
         <item>Engagement</item>
         <item>Baby Shower</item>
+        <item>Christmas</item>
+        <item>Secret Santa</item>
     </array>
     <string name="event_date_label">Event date:</string>
     <string name="choose_date_button">Choose Date</string>
