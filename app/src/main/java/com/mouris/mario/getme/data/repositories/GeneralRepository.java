@@ -7,6 +7,7 @@ import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
 import com.facebook.Profile;
 import com.google.firebase.database.DatabaseReference;
+import com.mouris.mario.getme.data.actors.Gift;
 import com.mouris.mario.getme.data.actors.User;
 import com.mouris.mario.getme.data.actors.WishList;
 
@@ -90,9 +91,15 @@ public class GeneralRepository {
         mWishListsRepository.deleteWishListFromFirebase(wishListId, completionListener);
     }
 
-    public void pushWishListToFirebase(WishList wishList,
+    public void pushWishListToFirebase(WishList wishList, List<Gift> listOfGifts,
                                        DatabaseReference.CompletionListener completionListener) {
-        mWishListsRepository.pushWishListToFirebase(wishList, completionListener);
+        String wishListId =
+                mWishListsRepository.pushWishListToFirebase(wishList, completionListener);
+        if (listOfGifts != null) {
+            for (Gift gift : listOfGifts) {
+                mWishListsRepository.addGiftToWishList(wishListId, gift, null);
+            }
+        }
     }
 
 

@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mouris.mario.getme.R;
 import com.mouris.mario.getme.data.actors.Gift;
@@ -105,6 +106,26 @@ public class WishListEditorActivity extends AppCompatActivity
         }
     }
 
+    private void saveWishList() {
+        if (mViewModel.wishList.event_type == null ||
+                mViewModel.wishList.event_time == 0L) {
+            Toast.makeText(this, R.string.empty_event_fields_toast, Toast.LENGTH_LONG).show();
+        } else if (mViewModel.giftsList.size() == 0) {
+            Toast.makeText(this, R.string.empty_gifts_toast, Toast.LENGTH_LONG).show();
+        } else {
+            mViewModel.saveWishList((databaseError, databaseReference) -> {
+                if (databaseError == null) {
+                    Toast.makeText(this,
+                            R.string.wishlist_saved_successfully, Toast.LENGTH_LONG).show();
+                    finish();
+                } else {
+                    Toast.makeText(this,
+                            R.string.failed_to_save_wishlist, Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+    }
+
     @OnClick(R.id.add_gift_button)
     void addGiftButtonClicked() {
         GiftEditorDialog giftDialog = new GiftEditorDialog();
@@ -152,7 +173,7 @@ public class WishListEditorActivity extends AppCompatActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_save_wishlist) {
-
+            saveWishList();
         }
         return super.onOptionsItemSelected(item);
     }

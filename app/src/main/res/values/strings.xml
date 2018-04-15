@@ -59,6 +59,10 @@
     <string name="gifts_card_title">Gifts List</string>
     <string name="add_gift_button">Add Gift</string>
     <string name="empty_gifts">No gifts added</string>
+    <string name="empty_event_fields_toast">Make sure you\'ve chosen the date and type of event</string>
+    <string name="empty_gifts_toast">You didn\'t add any gifts to this list</string>
+    <string name="wishlist_saved_successfully">WishList saved successfully</string>
+    <string name="failed_to_save_wishlist">Failed to save wish list, try again.</string>
 
 
     <!--Gift editor dialog's strings-->
