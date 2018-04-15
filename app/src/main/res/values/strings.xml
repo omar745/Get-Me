@@ -67,6 +67,8 @@
     <string name="gift_brand_hint">Brand</string>
     <string name="gift_description_hint">Description</string>
     <string name="gift_web_link_hint">Web link</string>
+    <string name="empty_gift_name_toast">Cannot save gift with out name</string>
+    <string name="gift_saved_successfully">Gift saved successfully</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->

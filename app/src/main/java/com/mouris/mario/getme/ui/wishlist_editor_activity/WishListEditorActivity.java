@@ -3,7 +3,6 @@ package com.mouris.mario.getme.ui.wishlist_editor_activity;
 import android.app.DatePickerDialog;
 import android.arch.lifecycle.ViewModelProviders;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,6 +16,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.mouris.mario.getme.R;
+import com.mouris.mario.getme.data.actors.Gift;
 import com.mouris.mario.getme.data.actors.WishList;
 import com.mouris.mario.getme.ui.adapters.GiftsAdapter;
 import com.mouris.mario.getme.ui.gift_editor_dialog.GiftEditorDialog;
@@ -28,7 +28,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class WishListEditorActivity extends AppCompatActivity
-        implements GiftsAdapter.GiftViewHolder.OnItemClickListener {
+        implements GiftsAdapter.GiftViewHolder.OnItemClickListener, GiftEditorDialog.OnGiftSave {
 
     public static final String WISH_LIST_EXTRA = "wish_list_extra_key";
 
@@ -55,9 +55,14 @@ public class WishListEditorActivity extends AppCompatActivity
 
         //Initiate gifts recyclerView
         mGiftsRv.setLayoutManager(new LinearLayoutManager(this));
+        mGiftsRv.setNestedScrollingEnabled(false);
         mGiftsAdapter = new GiftsAdapter(null, this);
         mGiftsRv.setAdapter(mGiftsAdapter);
 
+        //Set gifts list to recyclerView if not null
+        if (mViewModel.giftsList != null) {
+            mGiftsAdapter.setGiftsList(mViewModel.giftsList);
+        }
 
         //Check if in editing or creation mode (Check if WishList is null first)
         if (mViewModel.wishList == null) {
@@ -75,6 +80,9 @@ public class WishListEditorActivity extends AppCompatActivity
             mDateTv.setText(mViewModel.eventDate);
         }
 
+        //Listen for number of items in adapter to show/hide emptyPlaceholder
+        setEmptyPlaceholderState();
+
         //On item selected listener for spinner (Called when activity is created)
         mEventTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -89,9 +97,18 @@ public class WishListEditorActivity extends AppCompatActivity
         });
     }
 
+    private void setEmptyPlaceholderState(){
+        if (mGiftsAdapter.getItemCount() == 0) {
+            mGiftsEmptyLayout.setVisibility(View.VISIBLE);
+        } else {
+            mGiftsEmptyLayout.setVisibility(View.GONE);
+        }
+    }
+
     @OnClick(R.id.add_gift_button)
     void addGiftButtonClicked() {
-        DialogFragment giftDialog = new GiftEditorDialog();
+        GiftEditorDialog giftDialog = new GiftEditorDialog();
+        giftDialog.setOnGiftSaveListener(this);
         giftDialog.show(getSupportFragmentManager(), GiftEditorDialog.DIALOG_TAG);
     }
 
@@ -120,6 +137,13 @@ public class WishListEditorActivity extends AppCompatActivity
     }
 
     @Override
+    public void onGiftSaved(Gift gift) {
+        mViewModel.giftsList.add(gift);
+        mGiftsAdapter.setGiftsList(mViewModel.giftsList);
+        setEmptyPlaceholderState();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_wishlist_editor, menu);
         return true;
@@ -127,6 +151,9 @@ public class WishListEditorActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_save_wishlist) {
+
+        }
         return super.onOptionsItemSelected(item);
     }
 }
