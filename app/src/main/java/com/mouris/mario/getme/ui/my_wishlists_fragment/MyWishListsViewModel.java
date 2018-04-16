@@ -1,4 +1,4 @@
-package com.mouris.mario.getme.ui.home_fragment;
+package com.mouris.mario.getme.ui.my_wishlists_fragment;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
@@ -9,23 +9,19 @@ import com.mouris.mario.getme.data.repositories.GeneralRepository;
 
 import java.util.List;
 
-public class HomeViewModel extends ViewModel {
+public class MyWishListsViewModel extends ViewModel {
 
     private GeneralRepository mRepository;
 
-    public HomeViewModel() {
+    public MyWishListsViewModel() {
         mRepository = GeneralRepository.getInstance();
     }
 
-    LiveData<List<WishList>> getWishLists(User currentUser) {
-        return mRepository.getFriendsWishLists(currentUser.friends_list.keySet());
+    LiveData<List<WishList>> getWishLists() {
+        return mRepository.getMyWishListsLiveData(mRepository.getCurrentUserId());
     }
 
     LiveData<User> getCurrentUser() {
         return mRepository.getUserById(mRepository.getCurrentUserId());
-    }
-
-    LiveData<List<User>> getUsersList() {
-        return mRepository.getUsers();
     }
 }

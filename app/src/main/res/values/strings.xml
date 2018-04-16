@@ -37,6 +37,8 @@
     <!--WishList item's strings-->
     <string name="remaining_gifts" formatted="false">%1$s/%2$s Gifts remaining</string>
     <string name="wishlist_statement" formatted="false">has a %1$s event on %2$s</string>
+    <string name="empty_friends_wishlists">Your friends haven\'t posted any wishlists yet.</string>
+    <string name="empty_my_wishlists">You haven\'t posted any wishlists yet.</string>
     
 
     <!--Friends fragment's strings-->
@@ -79,10 +81,5 @@
     <string name="gift_web_link_hint">Web link</string>
     <string name="empty_gift_name_toast">Cannot save gift with out name</string>
     <string name="gift_saved_successfully">Gift saved successfully</string>
-    
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
 
 </resources>

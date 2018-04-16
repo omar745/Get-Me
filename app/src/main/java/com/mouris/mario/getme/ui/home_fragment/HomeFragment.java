@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.mouris.mario.getme.R;
 import com.mouris.mario.getme.ui.adapters.WishListsAdapter;
@@ -20,6 +21,7 @@ import butterknife.ButterKnife;
 public class HomeFragment extends Fragment {
 
     @BindView(R.id.wishlists_recyclerView) RecyclerView mWishListsRv;
+    @BindView(R.id.empty_placeholder) LinearLayout mEmptyLayout;
 
     private HomeViewModel mViewModel;
 
@@ -42,6 +44,13 @@ public class HomeFragment extends Fragment {
             if (currentUser != null) {
                 mViewModel.getWishLists(currentUser).observe(this, wishLists -> {
                     if (wishLists != null) {
+
+                        if (wishLists.size() == 0) {
+                            mEmptyLayout.setVisibility(View.VISIBLE);
+                        } else {
+                            mEmptyLayout.setVisibility(View.GONE);
+                        }
+
                         wishListsAdapter.setWishLists(wishLists);
                     }
                 });

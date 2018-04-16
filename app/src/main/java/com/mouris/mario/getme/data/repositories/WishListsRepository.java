@@ -23,8 +23,11 @@ public class WishListsRepository {
     //A hash map to keep track of existing live data objects not to create new ones when unnecessary
     private Map<String, LiveData<WishList>> mActiveLiveDataObjects = new HashMap<>();
 
-    //The liveData object that holds all the WishLists
-    private LiveData<List<WishList>> mWishListsLiveData;
+    //The liveData object that holds all the friends WishLists
+    private LiveData<List<WishList>> mFriendWishListsLiveData;
+
+    //The liveData object that holds all the current user's WishLists
+    private LiveData<List<WishList>> mMyWishListsLiveData;
 
     private static WishListsRepository sInstance;
 
@@ -44,12 +47,12 @@ public class WishListsRepository {
 
     //A method to retrieve a LiveData containing all the WishLists for my friends.
     // (It creates a new object if null)
-    LiveData<List<WishList>> getWishListsLiveData(Set<String> friendsIds) {
-        if (mWishListsLiveData == null) {
+    LiveData<List<WishList>> getFriendsWishListsLiveData(Set<String> friendsIds) {
+        if (mFriendWishListsLiveData == null) {
             //Create a liveData that returns a DataSnapshot
             FirebaseQueryLiveData dataSnapshotsLiveData =
                     new FirebaseQueryLiveData(mWishListsDbReference);
-            mWishListsLiveData = Transformations.map(dataSnapshotsLiveData, dataSnapshots -> {
+            mFriendWishListsLiveData = Transformations.map(dataSnapshotsLiveData, dataSnapshots -> {
                 if (dataSnapshots != null) {
                     List<WishList> wishListsList = new ArrayList<>();
                     for (DataSnapshot wishListSnapshot: dataSnapshots.getChildren()) {
@@ -67,7 +70,35 @@ public class WishListsRepository {
             });
         }
 
-        return mWishListsLiveData;
+        return mFriendWishListsLiveData;
+    }
+
+    //A method to retrieve a LiveData containing all my WishLists.
+    // (It creates a new object if null)
+    LiveData<List<WishList>> getMyWishListsLiveData(String currentUserId) {
+        if (mMyWishListsLiveData == null) {
+            //Create a liveData that returns a DataSnapshot
+            FirebaseQueryLiveData dataSnapshotsLiveData =
+                    new FirebaseQueryLiveData(mWishListsDbReference);
+            mMyWishListsLiveData = Transformations.map(dataSnapshotsLiveData, dataSnapshots -> {
+                if (dataSnapshots != null) {
+                    List<WishList> wishListsList = new ArrayList<>();
+                    for (DataSnapshot wishListSnapshot: dataSnapshots.getChildren()) {
+                        WishList newWishList = wishListSnapshot.getValue(WishList.class);
+                        if (newWishList != null && newWishList.owner.equals(currentUserId)) {
+                            newWishList.id = wishListSnapshot.getKey();
+                            wishListsList.add(newWishList);
+                        }
+
+                    }
+                    return wishListsList;
+                } else {
+                    return null;
+                }
+            });
+        }
+
+        return mMyWishListsLiveData;
     }
 
     //A method that retrieves the LiveData object observing this WishList if existing, or creates a

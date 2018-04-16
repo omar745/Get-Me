@@ -78,8 +78,12 @@ public class GeneralRepository {
 
     //----------------------------------------------------------------------------------------------
     //WishLists repository Code
-    public LiveData<List<WishList>> getWishLists(Set<String> friendsIds) {
-        return mWishListsRepository.getWishListsLiveData(friendsIds);
+    public LiveData<List<WishList>> getFriendsWishLists(Set<String> friendsIds) {
+        return mWishListsRepository.getFriendsWishListsLiveData(friendsIds);
+    }
+
+    public LiveData<List<WishList>> getMyWishListsLiveData(String currentUserId) {
+        return mWishListsRepository.getMyWishListsLiveData(currentUserId);
     }
 
     public LiveData<WishList> getWishListById(String wishListId) {
