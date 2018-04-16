@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 public class WishList extends Actor {
     public static final String ROOT_REF_NAME = "WishLists";
+    public static final String GIFTS_LIST = "gifts_list";
 
     public String event_type, owner;
     public long event_time;

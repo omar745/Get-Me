@@ -112,6 +112,7 @@ public class WishListsRepository {
         if (gift.id == null) {
             gift.id = mWishListsDbReference.child(wishListId).push().getKey();
         }
-        mWishListsDbReference.child(wishListId).child(gift.id).setValue(gift, completionListener);
+        mWishListsDbReference.child(wishListId)
+                .child(WishList.GIFTS_LIST).child(gift.id).setValue(gift, completionListener);
     }
 }
