@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.mouris.mario.getme.R;
 import com.mouris.mario.getme.data.actors.User;
-import com.mouris.mario.getme.data.actors.WishList;
+import com.mouris.mario.getme.data.actors.Wishlist;
 import com.mouris.mario.getme.utils.ListUtils;
 import com.mouris.mario.getme.utils.Utils;
 import com.squareup.picasso.Picasso;
@@ -23,20 +23,24 @@ import butterknife.ButterKnife;
 
 public class WishListsAdapter extends RecyclerView.Adapter<WishListsAdapter.WishListViewHolder> {
 
-    private List<WishList> mWishLists;
+    private List<Wishlist> mWishlists;
     private List<User> mUsersList;
     private boolean mShowGiftsRemaining;
 
-    public WishListsAdapter(List<WishList> wishLists,
+    private WishListViewHolder.OnItemClickListener mListener;
+
+    public WishListsAdapter(List<Wishlist> wishlists,
                             List<User> usersList,
-                            boolean showGiftsRemaining) {
-        mWishLists = wishLists;
+                            boolean showGiftsRemaining,
+                            WishListViewHolder.OnItemClickListener listener) {
+        mWishlists = wishlists;
         mUsersList = usersList;
         mShowGiftsRemaining = showGiftsRemaining;
+        mListener = listener;
     }
 
-    public void setWishLists(List<WishList> wishLists) {
-        mWishLists = wishLists;
+    public void setWishLists(List<Wishlist> wishlists) {
+        mWishlists = wishlists;
         notifyDataSetChanged();
     }
 
@@ -56,8 +60,8 @@ public class WishListsAdapter extends RecyclerView.Adapter<WishListsAdapter.Wish
 
     @Override
     public void onBindViewHolder(@NonNull WishListViewHolder wishListVh, int position) {
-        WishList wishList = mWishLists.get(position);
-        User user = ListUtils.searchListById(mUsersList, wishList.owner);
+        Wishlist wishlist = mWishlists.get(position);
+        User user = ListUtils.searchListById(mUsersList, wishlist.owner);
 
         if (user != null) {
             wishListVh.userNameTv.setText(user.display_name);
@@ -72,25 +76,27 @@ public class WishListsAdapter extends RecyclerView.Adapter<WishListsAdapter.Wish
         if (mShowGiftsRemaining) {
             wishListVh.remainingGiftsTv.setText(
                     context.getString(R.string.remaining_gifts,
-                            String.valueOf(wishList.gifts_list.size()),
-                            String.valueOf(wishList.gifts_list.size())));
+                            String.valueOf(wishlist.gifts_list.size()),
+                            String.valueOf(wishlist.gifts_list.size())));
         } else {
             wishListVh.remainingGiftsTv.setText(
                     context.getResources()
-                            .getQuantityString(R.plurals.gifts_count, wishList.gifts_list.size(),
-                                    String.valueOf(wishList.gifts_list.size())));
+                            .getQuantityString(R.plurals.gifts_count, wishlist.gifts_list.size(),
+                                    String.valueOf(wishlist.gifts_list.size())));
         }
 
         wishListVh.wishListStatementTv.setText(
                 context.getString(R.string.wishlist_statement,
-                        wishList.event_type,
-                        Utils.getDateStringFromMillis(wishList.event_time)));
+                        wishlist.event_type,
+                        Utils.getDateStringFromMillis(wishlist.event_time)));
+
+        wishListVh.itemView.setOnClickListener(view -> mListener.onWishlistClickListener(wishlist));
     }
 
     @Override
     public int getItemCount() {
-        if (mWishLists == null) return 0;
-        return mWishLists.size();
+        if (mWishlists == null) return 0;
+        return mWishlists.size();
     }
 
     //----------------------------------------------------------------------------------------------
@@ -104,6 +110,10 @@ public class WishListsAdapter extends RecyclerView.Adapter<WishListsAdapter.Wish
         WishListViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+        }
+
+        public interface OnItemClickListener {
+            void onWishlistClickListener(Wishlist wishlist);
         }
     }
 

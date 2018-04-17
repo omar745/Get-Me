@@ -9,7 +9,7 @@ import com.facebook.Profile;
 import com.google.firebase.database.DatabaseReference;
 import com.mouris.mario.getme.data.actors.Gift;
 import com.mouris.mario.getme.data.actors.User;
-import com.mouris.mario.getme.data.actors.WishList;
+import com.mouris.mario.getme.data.actors.Wishlist;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -78,15 +78,15 @@ public class GeneralRepository {
 
     //----------------------------------------------------------------------------------------------
     //WishLists repository Code
-    public LiveData<List<WishList>> getFriendsWishLists(Set<String> friendsIds) {
+    public LiveData<List<Wishlist>> getFriendsWishLists(Set<String> friendsIds) {
         return mWishListsRepository.getFriendsWishListsLiveData(friendsIds);
     }
 
-    public LiveData<List<WishList>> getMyWishListsLiveData(String currentUserId) {
+    public LiveData<List<Wishlist>> getMyWishListsLiveData(String currentUserId) {
         return mWishListsRepository.getMyWishListsLiveData(currentUserId);
     }
 
-    public LiveData<WishList> getWishListById(String wishListId) {
+    public LiveData<Wishlist> getWishListById(String wishListId) {
         return mWishListsRepository.getWishListLiveDataById(wishListId);
     }
 
@@ -95,10 +95,10 @@ public class GeneralRepository {
         mWishListsRepository.deleteWishListFromFirebase(wishListId, completionListener);
     }
 
-    public void pushWishListToFirebase(WishList wishList, List<Gift> listOfGifts,
+    public void pushWishListToFirebase(Wishlist wishlist, List<Gift> listOfGifts,
                                        DatabaseReference.CompletionListener completionListener) {
         String wishListId =
-                mWishListsRepository.pushWishListToFirebase(wishList, completionListener);
+                mWishListsRepository.pushWishListToFirebase(wishlist, completionListener);
         if (listOfGifts != null) {
             for (Gift gift : listOfGifts) {
                 mWishListsRepository.addGiftToWishList(wishListId, gift, null);

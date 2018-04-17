@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 import com.mouris.mario.getme.R;
 import com.mouris.mario.getme.data.actors.Gift;
-import com.mouris.mario.getme.data.actors.WishList;
+import com.mouris.mario.getme.data.actors.Wishlist;
 import com.mouris.mario.getme.ui.adapters.GiftsAdapter;
 import com.mouris.mario.getme.ui.gift_editor_dialog.GiftEditorDialog;
 
@@ -66,13 +66,13 @@ public class WishListEditorActivity extends AppCompatActivity
         }
 
         //Check if in editing or creation mode (Check if WishList is null first)
-        if (mViewModel.wishList == null) {
+        if (mViewModel.wishlist == null) {
             if (getIntent().hasExtra(WISH_LIST_EXTRA)) {
                 //In editing mode
 
             } else {
                 //In creation mode
-                mViewModel.wishList = new WishList();
+                mViewModel.wishlist = new Wishlist();
             }
         }
 
@@ -88,7 +88,7 @@ public class WishListEditorActivity extends AppCompatActivity
         mEventTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                mViewModel.wishList.event_type = mEventTypeSpinner.getSelectedItem().toString();
+                mViewModel.wishlist.event_type = mEventTypeSpinner.getSelectedItem().toString();
             }
 
             @Override
@@ -107,8 +107,8 @@ public class WishListEditorActivity extends AppCompatActivity
     }
 
     private void saveWishList() {
-        if (mViewModel.wishList.event_type == null ||
-                mViewModel.wishList.event_time == 0L) {
+        if (mViewModel.wishlist.event_type == null ||
+                mViewModel.wishlist.event_time == 0L) {
             Toast.makeText(this, R.string.empty_event_fields_toast, Toast.LENGTH_LONG).show();
         } else if (mViewModel.giftsList.size() == 0) {
             Toast.makeText(this, R.string.empty_gifts_toast, Toast.LENGTH_LONG).show();
@@ -147,7 +147,7 @@ public class WishListEditorActivity extends AppCompatActivity
             String dateString = "("+dayOfMonth+"/"+(month+1)+"/"+year+")";
             mDateTv.setText(dateString);
 
-            mViewModel.wishList.event_time = calendar.getTimeInMillis();
+            mViewModel.wishlist.event_time = calendar.getTimeInMillis();
             mViewModel.eventDate = dateString;
 
             Snackbar.make(mGiftsRv,

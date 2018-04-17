@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 
 import com.mouris.mario.getme.R;
 import com.mouris.mario.getme.data.actors.User;
+import com.mouris.mario.getme.data.actors.Wishlist;
 import com.mouris.mario.getme.ui.adapters.WishListsAdapter;
 
 import java.util.ArrayList;
@@ -21,7 +22,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MyWishListsFragment extends Fragment {
+public class MyWishListsFragment extends Fragment
+        implements WishListsAdapter.WishListViewHolder.OnItemClickListener {
 
     @BindView(R.id.wishlists_recyclerView) RecyclerView mWishListsRv;
     @BindView(R.id.empty_placeholder) LinearLayout mEmptyLayout;
@@ -41,7 +43,8 @@ public class MyWishListsFragment extends Fragment {
 
         mWishListsRv.setLayoutManager(new LinearLayoutManager(getContext()));
         WishListsAdapter wishListsAdapter =
-                new WishListsAdapter(null, null, false);
+                new WishListsAdapter(null, null,
+                        false, this);
         mWishListsRv.setAdapter(wishListsAdapter);
 
         mViewModel.getCurrentUser().observe(this, currentUser -> {
@@ -67,5 +70,10 @@ public class MyWishListsFragment extends Fragment {
         });
 
         return rootView;
+    }
+
+    @Override
+    public void onWishlistClickListener(Wishlist wishlist) {
+
     }
 }

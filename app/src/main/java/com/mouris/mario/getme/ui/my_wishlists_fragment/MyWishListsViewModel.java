@@ -4,7 +4,7 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
 
 import com.mouris.mario.getme.data.actors.User;
-import com.mouris.mario.getme.data.actors.WishList;
+import com.mouris.mario.getme.data.actors.Wishlist;
 import com.mouris.mario.getme.data.repositories.GeneralRepository;
 
 import java.util.List;
@@ -17,7 +17,7 @@ public class MyWishListsViewModel extends ViewModel {
         mRepository = GeneralRepository.getInstance();
     }
 
-    LiveData<List<WishList>> getWishLists() {
+    LiveData<List<Wishlist>> getWishLists() {
         return mRepository.getMyWishListsLiveData(mRepository.getCurrentUserId());
     }
 

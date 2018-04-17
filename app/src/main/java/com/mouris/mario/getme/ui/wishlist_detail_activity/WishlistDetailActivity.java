@@ -13,6 +13,7 @@ import com.mouris.mario.getme.ui.adapters.GiftsAdapter;
 import com.mouris.mario.getme.utils.Utils;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class WishlistDetailActivity extends AppCompatActivity
         implements GiftsAdapter.GiftViewHolder.OnItemClickListener{
@@ -30,6 +31,7 @@ public class WishlistDetailActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wishlist_detail);
+        ButterKnife.bind(this);
 
         //Initialize ViewModel
         mViewModel = ViewModelProviders.of(this).get(WishlistsDetailViewModel.class);
