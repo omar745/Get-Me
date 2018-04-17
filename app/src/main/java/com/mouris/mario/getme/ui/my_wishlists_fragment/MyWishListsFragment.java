@@ -40,7 +40,8 @@ public class MyWishListsFragment extends Fragment {
         mViewModel = ViewModelProviders.of(this).get(MyWishListsViewModel.class);
 
         mWishListsRv.setLayoutManager(new LinearLayoutManager(getContext()));
-        WishListsAdapter wishListsAdapter = new WishListsAdapter(null, null);
+        WishListsAdapter wishListsAdapter =
+                new WishListsAdapter(null, null, false);
         mWishListsRv.setAdapter(wishListsAdapter);
 
         mViewModel.getCurrentUser().observe(this, currentUser -> {

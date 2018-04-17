@@ -25,10 +25,14 @@ public class WishListsAdapter extends RecyclerView.Adapter<WishListsAdapter.Wish
 
     private List<WishList> mWishLists;
     private List<User> mUsersList;
+    private boolean mShowGiftsRemaining;
 
-    public WishListsAdapter(List<WishList> wishLists, List<User> usersList) {
+    public WishListsAdapter(List<WishList> wishLists,
+                            List<User> usersList,
+                            boolean showGiftsRemaining) {
         mWishLists = wishLists;
         mUsersList = usersList;
+        mShowGiftsRemaining = showGiftsRemaining;
     }
 
     public void setWishLists(List<WishList> wishLists) {
@@ -65,10 +69,17 @@ public class WishListsAdapter extends RecyclerView.Adapter<WishListsAdapter.Wish
 
         Context context = wishListVh.itemView.getContext();
 
-        wishListVh.remainingGiftsTv.setText(
-                context.getString(R.string.remaining_gifts,
-                String.valueOf(wishList.gifts_list.size()),
-                String.valueOf(wishList.gifts_list.size())));
+        if (mShowGiftsRemaining) {
+            wishListVh.remainingGiftsTv.setText(
+                    context.getString(R.string.remaining_gifts,
+                            String.valueOf(wishList.gifts_list.size()),
+                            String.valueOf(wishList.gifts_list.size())));
+        } else {
+            wishListVh.remainingGiftsTv.setText(
+                    context.getResources()
+                            .getQuantityString(R.plurals.gifts_count, wishList.gifts_list.size(),
+                                    String.valueOf(wishList.gifts_list.size())));
+        }
 
         wishListVh.wishListStatementTv.setText(
                 context.getString(R.string.wishlist_statement,

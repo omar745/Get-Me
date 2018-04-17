@@ -35,7 +35,11 @@
     
     
     <!--WishList item's strings-->
-    <string name="remaining_gifts" formatted="false">%1$s/%2$s Gifts remaining</string>
+    <string name="remaining_gifts" formatted="false">%1$s/%2$s Gifts taken</string>
+    <plurals name="gifts_count">
+        <item quantity="one">%1$s gift added</item>
+        <item quantity="many">%1$s gift added</item>
+    </plurals>
     <string name="wishlist_statement" formatted="false">has a %1$s event on %2$s</string>
     <string name="empty_friends_wishlists">Your friends haven\'t posted any wishlists yet.</string>
     <string name="empty_my_wishlists">You haven\'t posted any wishlists yet.</string>
