@@ -38,7 +38,7 @@
     <string name="remaining_gifts" formatted="false">%1$s/%2$s Gifts taken</string>
     <plurals name="gifts_count">
         <item quantity="one">%1$s Gift added</item>
-        <item quantity="many">%1$s Gift added</item>
+        <item quantity="other">%1$s Gifts added</item>
     </plurals>
     <string name="wishlist_statement" formatted="false">has a %1$s event on %2$s</string>
     <string name="empty_friends_wishlists">Your friends haven\'t posted any wishlists yet.</string>
@@ -72,7 +72,7 @@
     <string name="add_gift_button">Add Gift</string>
     <string name="empty_gifts">No gifts added</string>
     <string name="empty_event_fields_toast">Make sure you\'ve chosen the date and type of event</string>
-    <string name="empty_gifts_toast">You didn\'t add any gifts to this list</string>
+    <string name="empty_gifts_toast">You haven\'t add any gifts to this list</string>
     <string name="wishlist_saved_successfully">WishList saved successfully</string>
     <string name="failed_to_save_wishlist">Failed to save wish list, try again.</string>
 

@@ -9,9 +9,8 @@ import android.widget.TextView;
 
 import com.mouris.mario.getme.R;
 import com.mouris.mario.getme.data.actors.Gift;
-import com.mouris.mario.getme.utils.Utils;
+import com.mouris.mario.getme.utils.ListUtils;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -28,13 +27,8 @@ public class GiftsAdapter extends RecyclerView.Adapter<GiftsAdapter.GiftViewHold
         mListener = listener;
     }
 
-    public void setGiftsList(List<Gift> giftsList) {
-        mGiftsList = giftsList;
-        notifyDataSetChanged();
-    }
-
     public void setGiftsList(HashMap<String, Gift> gifts_list) {
-        mGiftsList = Utils.getGiftsListFromMap(gifts_list);
+        mGiftsList = ListUtils.getGiftsListFromMap(gifts_list);
         notifyDataSetChanged();
     }
 

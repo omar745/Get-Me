@@ -7,7 +7,7 @@ public class Wishlist extends Actor {
     public static final String GIFTS_LIST = "gifts_list";
 
     public String event_type, owner;
-    public Long event_time;
+    public long event_time;
     public boolean is_active = true;
     public HashMap<String, Gift> gifts_list;
 

@@ -62,11 +62,6 @@ public class WishListEditorActivity extends AppCompatActivity
         mGiftsAdapter = new GiftsAdapter(null, this);
         mGiftsRv.setAdapter(mGiftsAdapter);
 
-        //Set gifts list to recyclerView if not null
-        if (mViewModel.giftsList != null) {
-            mGiftsAdapter.setGiftsList(mViewModel.giftsList);
-        }
-
         //Check if in editing or creation mode (Check if WishList is null first)
         if (mViewModel.wishlist == null) {
             if (getIntent().hasExtra(WISH_LIST_ID_EXTRA)) {
@@ -76,7 +71,7 @@ public class WishListEditorActivity extends AppCompatActivity
 
                             if (wishlist != null) {
                                 mViewModel.wishlist = wishlist;
-                                mViewModel.giftsList = Utils.getGiftsListFromMap(wishlist.gifts_list);
+//                                mViewModel.giftsList = ListUtils.getGiftsListFromMap(wishlist.gifts_list);
 
                                 //Set the values
                                 mDateTv.setText(Utils.getDateStringFromMillis(wishlist.event_time));
@@ -95,6 +90,9 @@ public class WishListEditorActivity extends AppCompatActivity
                 //In creation mode
                 mViewModel.wishlist = new Wishlist();
             }
+        } else {
+            //Set previous values
+            mGiftsAdapter.setGiftsList(mViewModel.wishlist.gifts_list);
         }
 
         //Set date string if not null
@@ -131,7 +129,7 @@ public class WishListEditorActivity extends AppCompatActivity
         if (mViewModel.wishlist.event_type == null ||
                 mViewModel.wishlist.event_time == 0L) {
             Toast.makeText(this, R.string.empty_event_fields_toast, Toast.LENGTH_LONG).show();
-        } else if (mViewModel.giftsList.size() == 0) {
+        } else if (mViewModel.wishlist.gifts_list.size() == 0) {
             Toast.makeText(this, R.string.empty_gifts_toast, Toast.LENGTH_LONG).show();
         } else {
             mViewModel.saveWishList((databaseError, databaseReference) -> {
@@ -158,7 +156,7 @@ public class WishListEditorActivity extends AppCompatActivity
     void chooseDateButtonClicked() {
 
         Calendar pickerTime = Calendar.getInstance();
-        if (mViewModel.wishlist.event_time != null) {
+        if (mViewModel.wishlist.event_time != 0L) {
             pickerTime.setTimeInMillis(mViewModel.wishlist.event_time);
         }
 
@@ -169,7 +167,7 @@ public class WishListEditorActivity extends AppCompatActivity
             Calendar calendar = Calendar.getInstance();
             calendar.set(year, month, dayOfMonth);
 
-            String dateString = "("+dayOfMonth+"/"+(month+1)+"/"+year+")";
+            String dateString = dayOfMonth+"/"+(month+1)+"/"+year;
             mDateTv.setText(dateString);
 
             mViewModel.wishlist.event_time = calendar.getTimeInMillis();
@@ -184,8 +182,8 @@ public class WishListEditorActivity extends AppCompatActivity
 
     @Override
     public void onGiftSaved(Gift gift) {
-        mViewModel.giftsList.add(gift);
-        mGiftsAdapter.setGiftsList(mViewModel.giftsList);
+        mViewModel.addNewGiftToWishlist(gift);
+        mGiftsAdapter.setGiftsList(mViewModel.wishlist.gifts_list);
         setEmptyPlaceholderState();
     }
 

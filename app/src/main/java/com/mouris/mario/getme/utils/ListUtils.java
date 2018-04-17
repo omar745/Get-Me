@@ -1,7 +1,10 @@
 package com.mouris.mario.getme.utils;
 
 import com.mouris.mario.getme.data.actors.Actor;
+import com.mouris.mario.getme.data.actors.Gift;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class ListUtils {
@@ -15,5 +18,9 @@ public class ListUtils {
             }
         }
         return null;
+    }
+
+    static public List<Gift> getGiftsListFromMap(HashMap<String, Gift> giftsMap) {
+        return new ArrayList<>(giftsMap.values());
     }
 }

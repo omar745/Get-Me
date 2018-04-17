@@ -95,15 +95,10 @@ public class GeneralRepository {
         mWishListsRepository.deleteWishListFromFirebase(wishListId, completionListener);
     }
 
-    public void pushWishListToFirebase(Wishlist wishlist, List<Gift> listOfGifts,
+    public void pushWishListToFirebase(Wishlist wishlist,
                                        DatabaseReference.CompletionListener completionListener) {
         String wishListId =
                 mWishListsRepository.pushWishListToFirebase(wishlist, completionListener);
-        if (listOfGifts != null) {
-            for (Gift gift : listOfGifts) {
-                mWishListsRepository.addGiftToWishList(wishListId, gift, null);
-            }
-        }
     }
 
 
