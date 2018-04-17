@@ -77,6 +77,10 @@
     <string name="failed_to_save_wishlist">Failed to save wish list, try again.</string>
 
 
+    <!--Wishlist detail's strings-->
+    <string name="event_type_placeholder">Birthday</string>
+
+
     <!--Gift editor dialog's strings-->
     <string name="gift_editor_title">What do you want?</string>
     <string name="gift_name_hint">Gift Name</string>
