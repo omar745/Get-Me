@@ -49,16 +49,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ui.welcome_screens.FacebookLoginActivity"
             android:theme="@style/AppTheme.WelcomePage" />
-
-        <activity android:name=".ui.MainActivity"
+        <activity
+            android:name=".ui.MainActivity"
             android:launchMode="singleTop" />
-
-        <activity android:name=".ui.wishlist_editor_activity.WishListEditorActivity"
-            android:parentActivityName=".ui.MainActivity"/>
+        <activity
+            android:name=".ui.wishlist_editor_activity.WishListEditorActivity"
+            android:parentActivityName=".ui.MainActivity"
+            android:theme="@style/AppTheme.WithTransparentNav"/>
+        <activity android:name=".ui.wishlist_detail_activity.WishlistDetailActivity"/>
     </application>
 
 </manifest>

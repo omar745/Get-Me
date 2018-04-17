@@ -14,36 +14,36 @@
 
     <!--Bottom Navigation items & menu items-->
     <string name="home_title">Home</string>
-    <string name="my_wishlists_title">My WishLists</string>
+    <string name="my_wishlists_title">My Wishlists</string>
     <string name="friends_title">Friends</string>
     <string name="logout">Logout</string>
-    <string name="add_wishlist">Add WishList</string>
+    <string name="add_wishlist">Add Wishlist</string>
 
 
     <!--User item's strings-->
     <string name="user_name_place_holder">User name</string>
     <string name="mute_button">Mute</string>
     <string name="unmute_button">Unmute</string>
-    
-    
+
+
     <!--Gift item's strings-->
     <string name="gift_name_placeholder">Gift Name</string>
     <string name="gift_description_placeholder">A gift description, it\'s a gift that I want that
         has some properties. These are some of them (Like size color or place to buy)</string>
     <string name="gift_brand_placeholder">Brand</string>
     <string name="gift_web_link_placeholder">https://play.anghami.com/playlist/31334698</string>
-    
-    
+
+
     <!--WishList item's strings-->
     <string name="remaining_gifts" formatted="false">%1$s/%2$s Gifts taken</string>
     <plurals name="gifts_count">
-        <item quantity="one">%1$s gift added</item>
-        <item quantity="many">%1$s gift added</item>
+        <item quantity="one">%1$s Gift added</item>
+        <item quantity="many">%1$s Gift added</item>
     </plurals>
     <string name="wishlist_statement" formatted="false">has a %1$s event on %2$s</string>
     <string name="empty_friends_wishlists">Your friends haven\'t posted any wishlists yet.</string>
     <string name="empty_my_wishlists">You haven\'t posted any wishlists yet.</string>
-    
+
 
     <!--Friends fragment's strings-->
     <string name="muted_friend_successfully">Muted friend successfully</string>
@@ -54,7 +54,7 @@
 
     <!--WishList editor's strings-->
     <string name="save_wishlist">Save</string>
-    <string name="wishlist_editor_title">WishList Editor</string>
+    <string name="wishlist_editor_title">Wishlist Editor</string>
     <string name="event_card_title">Event Description</string>
     <string name="event_type_label">Event type:</string>
     <array name="event_types">
