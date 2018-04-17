@@ -78,6 +78,7 @@
 
 
     <!--Wishlist detail's strings-->
+    <string name="wishlist_detail_title">Wishlist</string>
     <string name="event_type_placeholder">Birthday</string>
 
 

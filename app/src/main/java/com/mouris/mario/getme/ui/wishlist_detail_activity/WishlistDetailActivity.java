@@ -22,7 +22,7 @@ public class WishlistDetailActivity extends AppCompatActivity
 
     public static final String WISHLIST_ID_EXTRA = "wishlist_id_extra";
 
-    @BindView(R.id.user_name_textView) TextView mUserNameTv;
+    @BindView(R.id.owner_name_textView) TextView mUserNameTv;
     @BindView(R.id.picture_imageView) CircularImageView mProfileIv;
     @BindView(R.id.event_type_textView) TextView mEventTypeTv;
     @BindView(R.id.date_textView) TextView mDateTv;
@@ -34,8 +34,10 @@ public class WishlistDetailActivity extends AppCompatActivity
         setContentView(R.layout.activity_wishlist_detail);
         ButterKnife.bind(this);
 
+        setTitle(R.string.wishlist_detail_title);
+        
         //Initialize ViewModel
-        WishlistsDetailViewModel viewModel = ViewModelProviders.of(this).get(WishlistsDetailViewModel.class);
+        WishlistDetailViewModel viewModel = ViewModelProviders.of(this).get(WishlistDetailViewModel.class);
 
         //Initialize RecyclerView
         mGiftsRv.setLayoutManager(new LinearLayoutManager(this));

@@ -7,11 +7,11 @@ import com.mouris.mario.getme.data.actors.User;
 import com.mouris.mario.getme.data.actors.Wishlist;
 import com.mouris.mario.getme.data.repositories.GeneralRepository;
 
-public class WishlistsDetailViewModel extends ViewModel {
+public class WishlistDetailViewModel extends ViewModel {
 
     private GeneralRepository mRepository;
 
-    public WishlistsDetailViewModel() {
+    public WishlistDetailViewModel() {
         mRepository = GeneralRepository.getInstance();
     }
 

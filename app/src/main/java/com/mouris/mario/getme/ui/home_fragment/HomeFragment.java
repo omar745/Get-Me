@@ -3,14 +3,18 @@ package com.mouris.mario.getme.ui.home_fragment;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.mouris.mario.getme.R;
@@ -73,9 +77,19 @@ public class HomeFragment extends Fragment
     }
 
     @Override
-    public void onWishlistClickListener(Wishlist wishlist) {
+    public void onWishlistClickListener(Wishlist wishlist, ImageView profilePictureIv) {
         Intent wishlistDetailIntent = new Intent(getContext(), WishlistDetailActivity.class);
         wishlistDetailIntent.putExtra(WishlistDetailActivity.WISHLIST_ID_EXTRA, wishlist.id);
-        startActivity(wishlistDetailIntent);
+
+        if (Build.VERSION.SDK_INT >= 21) {
+            ActivityOptionsCompat options =
+                    ActivityOptionsCompat.makeSceneTransitionAnimation(
+                            getActivity(),
+                            profilePictureIv,
+                            "imageTransition");
+            startActivity(wishlistDetailIntent, options.toBundle());
+        } else {
+            startActivity(wishlistDetailIntent);
+        }
     }
 }

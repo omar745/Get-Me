@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.mouris.mario.getme.R;
@@ -73,7 +74,7 @@ public class MyWishListsFragment extends Fragment
     }
 
     @Override
-    public void onWishlistClickListener(Wishlist wishlist) {
+    public void onWishlistClickListener(Wishlist wishlist, ImageView profilePictureIv) {
 
     }
 }
