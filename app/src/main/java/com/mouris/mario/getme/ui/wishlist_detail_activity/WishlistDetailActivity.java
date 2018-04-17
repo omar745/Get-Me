@@ -8,9 +8,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
+import com.mikhaellopez.circularimageview.CircularImageView;
 import com.mouris.mario.getme.R;
 import com.mouris.mario.getme.ui.adapters.GiftsAdapter;
 import com.mouris.mario.getme.utils.Utils;
+import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -20,12 +22,11 @@ public class WishlistDetailActivity extends AppCompatActivity
 
     public static final String WISHLIST_ID_EXTRA = "wishlist_id_extra";
 
+    @BindView(R.id.user_name_textView) TextView mUserNameTv;
+    @BindView(R.id.picture_imageView) CircularImageView mProfileIv;
     @BindView(R.id.event_type_textView) TextView mEventTypeTv;
     @BindView(R.id.date_textView) TextView mDateTv;
     @BindView(R.id.gifts_recyclerView) RecyclerView mGiftsRv;
-
-    private String mWishlistId;
-    private WishlistsDetailViewModel mViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +35,7 @@ public class WishlistDetailActivity extends AppCompatActivity
         ButterKnife.bind(this);
 
         //Initialize ViewModel
-        mViewModel = ViewModelProviders.of(this).get(WishlistsDetailViewModel.class);
+        WishlistsDetailViewModel viewModel = ViewModelProviders.of(this).get(WishlistsDetailViewModel.class);
 
         //Initialize RecyclerView
         mGiftsRv.setLayoutManager(new LinearLayoutManager(this));
@@ -44,14 +45,23 @@ public class WishlistDetailActivity extends AppCompatActivity
         //Get the passed wishlistId
         Intent currentIntent = getIntent();
         if (currentIntent.hasExtra(WISHLIST_ID_EXTRA)) {
-            mWishlistId = currentIntent.getStringExtra(WISHLIST_ID_EXTRA);
+            String wishlistId = currentIntent.getStringExtra(WISHLIST_ID_EXTRA);
 
-            mViewModel.getWishList(mWishlistId).observe(this, wishList -> {
+            viewModel.getWishList(wishlistId).observe(this, wishList -> {
                 if (wishList != null) {
                     mEventTypeTv.setText(wishList.event_type);
                     mDateTv.setText(Utils.getDateStringFromMillis(wishList.event_time));
 
                     giftsAdapter.setGiftsList(wishList.gifts_list);
+
+                    viewModel.getUser(wishList.owner).observe(this, user -> {
+                        if (user != null) {
+                            mUserNameTv.setText(user.display_name);
+                            Picasso.get().load(user.profile_picture)
+                                    .resize(200,200)
+                                    .centerCrop().into(mProfileIv);
+                        }
+                    });
                 }
             });
 
