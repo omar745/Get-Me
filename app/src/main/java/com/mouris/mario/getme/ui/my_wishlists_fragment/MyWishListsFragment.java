@@ -1,6 +1,7 @@
 package com.mouris.mario.getme.ui.my_wishlists_fragment;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -16,6 +17,7 @@ import com.mouris.mario.getme.R;
 import com.mouris.mario.getme.data.actors.User;
 import com.mouris.mario.getme.data.actors.Wishlist;
 import com.mouris.mario.getme.ui.adapters.WishListsAdapter;
+import com.mouris.mario.getme.ui.wishlist_editor_activity.WishListEditorActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,6 +77,9 @@ public class MyWishListsFragment extends Fragment
 
     @Override
     public void onWishlistClickListener(Wishlist wishlist, ImageView profilePictureIv) {
+        Intent wishlistEditorIntent = new Intent(getContext(), WishListEditorActivity.class);
+        wishlistEditorIntent.putExtra(WishListEditorActivity.WISH_LIST_ID_EXTRA, wishlist.id);
 
+        startActivity(wishlistEditorIntent);
     }
 }

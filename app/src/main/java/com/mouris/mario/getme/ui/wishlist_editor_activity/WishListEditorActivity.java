@@ -21,7 +21,9 @@ import com.mouris.mario.getme.data.actors.Gift;
 import com.mouris.mario.getme.data.actors.Wishlist;
 import com.mouris.mario.getme.ui.adapters.GiftsAdapter;
 import com.mouris.mario.getme.ui.gift_editor_dialog.GiftEditorDialog;
+import com.mouris.mario.getme.utils.Utils;
 
+import java.util.Arrays;
 import java.util.Calendar;
 
 import butterknife.BindView;
@@ -31,7 +33,7 @@ import butterknife.OnClick;
 public class WishListEditorActivity extends AppCompatActivity
         implements GiftsAdapter.GiftViewHolder.OnItemClickListener, GiftEditorDialog.OnGiftSave {
 
-    public static final String WISH_LIST_EXTRA = "wish_list_extra_key";
+    public static final String WISH_LIST_ID_EXTRA = "wish_list_extra_key";
 
     @BindView(R.id.event_type_spinner) Spinner mEventTypeSpinner;
     @BindView(R.id.date_textView) TextView mDateTv;
@@ -67,8 +69,27 @@ public class WishListEditorActivity extends AppCompatActivity
 
         //Check if in editing or creation mode (Check if WishList is null first)
         if (mViewModel.wishlist == null) {
-            if (getIntent().hasExtra(WISH_LIST_EXTRA)) {
+            if (getIntent().hasExtra(WISH_LIST_ID_EXTRA)) {
                 //In editing mode
+                mViewModel.getWishlist(getIntent()
+                        .getStringExtra(WISH_LIST_ID_EXTRA)).observe(this, wishlist -> {
+
+                            if (wishlist != null) {
+                                mViewModel.wishlist = wishlist;
+                                mViewModel.giftsList = Utils.getGiftsListFromMap(wishlist.gifts_list);
+
+                                //Set the values
+                                mDateTv.setText(Utils.getDateStringFromMillis(wishlist.event_time));
+                                mGiftsAdapter.setGiftsList(wishlist.gifts_list);
+                                setEmptyPlaceholderState();
+
+                                //Set the right index for the spinner
+                                String[] typesArray =
+                                        getResources().getStringArray(R.array.event_types);
+                                mEventTypeSpinner.setSelection(
+                                        Arrays.asList(typesArray).indexOf(wishlist.event_type));
+                            }
+                });
 
             } else {
                 //In creation mode
@@ -136,7 +157,11 @@ public class WishListEditorActivity extends AppCompatActivity
     @OnClick(R.id.choose_date_button)
     void chooseDateButtonClicked() {
 
-        Calendar currentTime = Calendar.getInstance();
+        Calendar pickerTime = Calendar.getInstance();
+        if (mViewModel.wishlist.event_time != null) {
+            pickerTime.setTimeInMillis(mViewModel.wishlist.event_time);
+        }
+
 
         // Launch Time Picker Dialog
         new DatePickerDialog(this, (datePicker, year, month, dayOfMonth) -> {
@@ -152,9 +177,9 @@ public class WishListEditorActivity extends AppCompatActivity
 
             Snackbar.make(mGiftsRv,
                     "Event time is set to " + dateString, Snackbar.LENGTH_LONG).show();
-        }, currentTime.get(Calendar.YEAR),
-                currentTime.get(Calendar.MONTH),
-                currentTime.get(Calendar.DAY_OF_MONTH)).show();
+        }, pickerTime.get(Calendar.YEAR),
+                pickerTime.get(Calendar.MONTH),
+                pickerTime.get(Calendar.DAY_OF_MONTH)).show();
     }
 
     @Override

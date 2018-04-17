@@ -16,7 +16,7 @@ public class WishlistDetailViewModel extends ViewModel {
     }
 
     LiveData<Wishlist> getWishList(String wishlistId) {
-        return mRepository.getWishListById(wishlistId);
+        return mRepository.getWishlistById(wishlistId);
     }
 
     LiveData<User> getUser(String userId) {

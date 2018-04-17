@@ -86,7 +86,7 @@ public class GeneralRepository {
         return mWishListsRepository.getMyWishListsLiveData(currentUserId);
     }
 
-    public LiveData<Wishlist> getWishListById(String wishListId) {
+    public LiveData<Wishlist> getWishlistById(String wishListId) {
         return mWishListsRepository.getWishListLiveDataById(wishListId);
     }
 

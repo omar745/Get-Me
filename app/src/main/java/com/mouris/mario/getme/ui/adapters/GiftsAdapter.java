@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.mouris.mario.getme.R;
 import com.mouris.mario.getme.data.actors.Gift;
+import com.mouris.mario.getme.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,7 +34,7 @@ public class GiftsAdapter extends RecyclerView.Adapter<GiftsAdapter.GiftViewHold
     }
 
     public void setGiftsList(HashMap<String, Gift> gifts_list) {
-        mGiftsList = new ArrayList<>(gifts_list.values());
+        mGiftsList = Utils.getGiftsListFromMap(gifts_list);
         notifyDataSetChanged();
     }
 

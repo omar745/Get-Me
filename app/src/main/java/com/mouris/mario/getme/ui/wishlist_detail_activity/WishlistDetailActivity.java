@@ -35,7 +35,7 @@ public class WishlistDetailActivity extends AppCompatActivity
         ButterKnife.bind(this);
 
         setTitle(R.string.wishlist_detail_title);
-        
+
         //Initialize ViewModel
         WishlistDetailViewModel viewModel = ViewModelProviders.of(this).get(WishlistDetailViewModel.class);
 
