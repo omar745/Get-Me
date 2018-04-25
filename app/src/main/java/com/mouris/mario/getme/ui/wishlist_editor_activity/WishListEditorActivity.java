@@ -58,7 +58,6 @@ public class WishListEditorActivity extends AppCompatActivity
 
         //Initiate gifts recyclerView
         mGiftsRv.setLayoutManager(new LinearLayoutManager(this));
-        mGiftsRv.setNestedScrollingEnabled(false);
         mGiftsAdapter = new GiftsAdapter(null, this);
         mGiftsRv.setAdapter(mGiftsAdapter);
 
@@ -72,6 +71,7 @@ public class WishListEditorActivity extends AppCompatActivity
                             if (wishlist != null) {
                                 mViewModel.wishlist = wishlist;
 //                                mViewModel.giftsList = ListUtils.getGiftsListFromMap(wishlist.gifts_list);
+                                mGiftsRv.smoothScrollToPosition(0);
 
                                 //Set the values
                                 mDateTv.setText(Utils.getDateStringFromMillis(wishlist.event_time));
