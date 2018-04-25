@@ -60,6 +60,7 @@ public class WishlistDetailActivity extends AppCompatActivity
                         if (user != null) {
                             mUserNameTv.setText(user.display_name);
                             Picasso.get().load(user.profile_picture)
+                                    .placeholder(R.drawable.image_placeholder)
                                     .resize(200,200)
                                     .centerCrop().into(mProfileIv);
                         }
