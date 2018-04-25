@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -54,7 +53,6 @@ public class HomeFragment extends Fragment
             if (currentUser != null) {
                 mViewModel.getWishLists(currentUser).observe(this, wishLists -> {
                     if (wishLists != null) {
-
                         if (wishLists.size() == 0) {
                             mEmptyLayout.setVisibility(View.VISIBLE);
                         } else {

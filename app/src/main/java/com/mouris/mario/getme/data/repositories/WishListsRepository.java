@@ -25,6 +25,7 @@ public class WishListsRepository {
 
     //The liveData object that holds all the friends WishLists
     private LiveData<List<Wishlist>> mFriendWishListsLiveData;
+    private Set<String> mFriendsIds;
 
     //The liveData object that holds all the current user's WishLists
     private LiveData<List<Wishlist>> mMyWishListsLiveData;
@@ -48,7 +49,8 @@ public class WishListsRepository {
     //A method to retrieve a LiveData containing all the WishLists for my friends.
     // (It creates a new object if null)
     LiveData<List<Wishlist>> getFriendsWishListsLiveData(Set<String> friendsIds) {
-        if (mFriendWishListsLiveData == null) {
+        if (mFriendWishListsLiveData == null || !friendsIds.equals(mFriendsIds)) {
+            mFriendsIds = friendsIds;
             //Create a liveData that returns a DataSnapshot
             FirebaseQueryLiveData dataSnapshotsLiveData =
                     new FirebaseQueryLiveData(mWishListsDbReference);
