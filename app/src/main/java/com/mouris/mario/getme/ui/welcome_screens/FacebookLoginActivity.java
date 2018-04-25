@@ -94,9 +94,8 @@ public class FacebookLoginActivity extends AppCompatActivity {
                         Log.e(LOG_TAG, "signInWithCredential:failure", task.getException());
                         Toast.makeText(FacebookLoginActivity.this, "Authentication failed.",
                                 Toast.LENGTH_SHORT).show();
+                        setLoading(false);
                     }
-
-                    setLoading(false);
                 });
     }
 
@@ -132,6 +131,7 @@ public class FacebookLoginActivity extends AppCompatActivity {
                                     finish();
                                 } else {
                                     Log.e(LOG_TAG, "There was an error creating new user object", databaseError.toException());
+                                    setLoading(false);
                                 }
 
                             }));
