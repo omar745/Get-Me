@@ -37,11 +37,12 @@ public class WishlistDetailActivity extends AppCompatActivity
         setTitle(R.string.wishlist_detail_title);
 
         //Initialize ViewModel
-        WishlistDetailViewModel viewModel = ViewModelProviders.of(this).get(WishlistDetailViewModel.class);
+        WishlistDetailViewModel viewModel = ViewModelProviders.of(this)
+                .get(WishlistDetailViewModel.class);
 
         //Initialize RecyclerView
         mGiftsRv.setLayoutManager(new LinearLayoutManager(this));
-        GiftsAdapter giftsAdapter = new GiftsAdapter(null, this);
+        GiftsAdapter giftsAdapter = new GiftsAdapter(null, viewModel.getCurrentUserId(),this);
         mGiftsRv.setAdapter(giftsAdapter);
 
         //Get the passed wishlistId

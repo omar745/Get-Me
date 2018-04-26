@@ -58,7 +58,7 @@ public class WishListEditorActivity extends AppCompatActivity
 
         //Initiate gifts recyclerView
         mGiftsRv.setLayoutManager(new LinearLayoutManager(this));
-        mGiftsAdapter = new GiftsAdapter(null, this);
+        mGiftsAdapter = new GiftsAdapter(null, null, this);
         mGiftsRv.setAdapter(mGiftsAdapter);
 
         //Check if in editing or creation mode (Check if WishList is null first)

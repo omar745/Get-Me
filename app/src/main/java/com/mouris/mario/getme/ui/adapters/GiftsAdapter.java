@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.mouris.mario.getme.R;
@@ -20,10 +21,12 @@ import butterknife.ButterKnife;
 public class GiftsAdapter extends RecyclerView.Adapter<GiftsAdapter.GiftViewHolder> {
 
     private List<Gift> mGiftsList;
+    private String mCurrentUserId;
     private GiftViewHolder.OnItemClickListener mListener;
 
-    public GiftsAdapter(List<Gift> giftsList, GiftViewHolder.OnItemClickListener listener) {
+    public GiftsAdapter(List<Gift> giftsList, String currentUserId, GiftViewHolder.OnItemClickListener listener) {
         mGiftsList = giftsList;
+        mCurrentUserId = currentUserId;
         mListener = listener;
     }
 
@@ -50,6 +53,12 @@ public class GiftsAdapter extends RecyclerView.Adapter<GiftsAdapter.GiftViewHold
         setTextOrHide(giftVh.brandTv, gift.brand);
         setTextOrHide(giftVh.descriptionTv, gift.description);
         setTextOrHide(giftVh.webLinkTv, gift.web_link);
+
+        if (mCurrentUserId != null) {
+            giftVh.buyButton.setVisibility(View.VISIBLE);
+        } else {
+            giftVh.buyButton.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -76,10 +85,15 @@ public class GiftsAdapter extends RecyclerView.Adapter<GiftsAdapter.GiftViewHold
         @BindView(R.id.brand_textView) TextView brandTv;
         @BindView(R.id.description_textView) TextView descriptionTv;
         @BindView(R.id.web_link_textView) TextView webLinkTv;
+        @BindView(R.id.buy_gift_button) Button buyButton;
 
-        public GiftViewHolder(View itemView) {
+        GiftViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+        }
+
+        void setButtonState(Gift gift, String userId) {
+
         }
 
         public interface OnItemClickListener {

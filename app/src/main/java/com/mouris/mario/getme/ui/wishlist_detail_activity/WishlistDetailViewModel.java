@@ -22,4 +22,8 @@ public class WishlistDetailViewModel extends ViewModel {
     LiveData<User> getUser(String userId) {
         return mRepository.getUserById(userId);
     }
+
+    String getCurrentUserId() {
+        return mRepository.getCurrentUserId();
+    }
 }

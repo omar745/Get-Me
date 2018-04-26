@@ -32,6 +32,8 @@
         has some properties. These are some of them (Like size color or place to buy)</string>
     <string name="gift_brand_placeholder">Brand</string>
     <string name="gift_web_link_placeholder">https://play.anghami.com/playlist/31334698</string>
+    <string name="buy_button">Buy this gift</string>
+    <string name="cancel_button">Cancel</string>
 
 
     <!--WishList item's strings-->
