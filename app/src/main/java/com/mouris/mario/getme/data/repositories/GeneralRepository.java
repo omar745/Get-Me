@@ -102,9 +102,25 @@ public class GeneralRepository {
                 mWishListsRepository.pushWishListToFirebase(wishlist, completionListener);
     }
 
+    //Buying process code
     public void setBuyerForGift(String wishlistId, String giftId, Buyer buyer,
                                 DatabaseReference.CompletionListener completionListener) {
         mWishListsRepository.setBuyerForGift(wishlistId, giftId, buyer, completionListener);
+    }
+
+    public void shareInGift(String wishlistId, String giftId, String userId,
+                            DatabaseReference.CompletionListener completionListener) {
+        mWishListsRepository.shareInGift(wishlistId, giftId, userId, completionListener);
+    }
+
+    public void cancelBuyingGift(String wishlistId, String giftId,
+                                 DatabaseReference.CompletionListener completionListener) {
+        mWishListsRepository.cancelBuyingGift(wishlistId, giftId, completionListener);
+    }
+
+    public void cancelSharingGift(String wishlistId, String giftId, String userId,
+                                  DatabaseReference.CompletionListener completionListener) {
+        mWishListsRepository.cancelSharingGift(wishlistId, giftId, userId, completionListener);
     }
 
 

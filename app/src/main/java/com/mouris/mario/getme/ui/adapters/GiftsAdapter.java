@@ -126,7 +126,7 @@ public class GiftsAdapter extends RecyclerView.Adapter<GiftsAdapter.GiftViewHold
                 if (gift.isBuyer(userId)) {
                     //This user is the original buyer, show cancel button
                     buyButtonState = BuyButtonState.buyer_state;
-                    buyButton.setText(R.string.cancel_button);
+                    buyButton.setText(R.string.cancel_buying_button);
                     if (Build.VERSION.SDK_INT >= 21) {
                         buyButton.getBackground().setColorFilter(
                                 ContextCompat.getColor(itemView.getContext(), R.color.colorAccent),
@@ -137,7 +137,7 @@ public class GiftsAdapter extends RecyclerView.Adapter<GiftsAdapter.GiftViewHold
                     if (gift.isSharer(userId)) {
                         //This user is a sharer, show cancel button
                         buyButtonState = BuyButtonState.sharer_state;
-                        buyButton.setText(R.string.cancel_button);
+                        buyButton.setText(R.string.cancel_sharing_button);
                         if (Build.VERSION.SDK_INT >= 21) {
                             buyButton.getBackground().setColorFilter(
                                     ContextCompat.getColor(itemView.getContext(), R.color.colorAccent),

@@ -11,7 +11,7 @@ public class BuyGiftViewModel extends ViewModel {
     private GeneralRepository mRepository;
 
     boolean sharingIsEnabled;
-    int numberOfSharers;
+    int numberOfSharers = 1;
 
     public BuyGiftViewModel() {
         mRepository = GeneralRepository.getInstance();

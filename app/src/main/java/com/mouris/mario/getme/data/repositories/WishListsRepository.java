@@ -155,4 +155,24 @@ public class WishListsRepository {
         mWishListsDbReference.child(wishlistId).child(Wishlist.GIFTS_LIST).child(giftId)
                 .child(Gift.BUYER_INFO).setValue(buyer, completionListener);
     }
+
+    public void shareInGift(String wishlistId, String giftId, String userId,
+                            DatabaseReference.CompletionListener completionListener) {
+        mWishListsDbReference.child(wishlistId).child(Wishlist.GIFTS_LIST).child(giftId)
+                .child(Gift.BUYER_INFO).child(Buyer.SHARER_IDS)
+                .child(userId).setValue(true, completionListener);
+    }
+
+    public void cancelBuyingGift(String wishlistId, String giftId,
+                                 DatabaseReference.CompletionListener completionListener) {
+        mWishListsDbReference.child(wishlistId).child(Wishlist.GIFTS_LIST).child(giftId)
+                .child(Gift.BUYER_INFO).removeValue(completionListener);
+    }
+
+    public void cancelSharingGift(String wishlistId, String giftId, String userId,
+                                  DatabaseReference.CompletionListener completionListener) {
+        mWishListsDbReference.child(wishlistId).child(Wishlist.GIFTS_LIST).child(giftId)
+                .child(Gift.BUYER_INFO).child(Buyer.SHARER_IDS)
+                .child(userId).removeValue(completionListener);
+    }
 }

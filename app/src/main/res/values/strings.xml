@@ -34,7 +34,9 @@
     <string name="gift_web_link_placeholder">https://play.anghami.com/playlist/31334698</string>
     <string name="buy_button">Buy this gift</string>
     <string name="share_in_gift_button">Share in paying for this gift</string>
-    <string name="cancel_button">Cancel</string>
+    <string name="gift_is_bought">Gift is already bought</string>
+    <string name="cancel_buying_button">Cancel buying</string>
+    <string name="cancel_sharing_button">Cancel sharing</string>
 
 
     <!--WishList item's strings-->
@@ -85,6 +87,11 @@
     <!--Wishlist detail's strings-->
     <string name="wishlist_detail_title">Wishlist</string>
     <string name="event_type_placeholder">Birthday</string>
+    <string name="shared_in_gift_successfully">Shared in gift successfully</string>
+    <string name="failed_to_share_in_gift">Failed to share in gift, try again later</string>
+    <string name="canceled_buying_gift_successfully">Canceled buying gift successfully</string>
+    <string name="canceled_sharing_gift_successfully">Canceled sharing in gift successfully</string>
+    <string name="error_canceling">Failed to cancel, try again later</string>
 
 
     <!--Gift editor dialog's strings-->

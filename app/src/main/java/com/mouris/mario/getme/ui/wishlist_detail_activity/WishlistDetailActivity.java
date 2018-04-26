@@ -4,6 +4,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -34,6 +35,7 @@ public class WishlistDetailActivity extends AppCompatActivity
     @BindView(R.id.date_textView) TextView mDateTv;
     @BindView(R.id.gifts_recyclerView) RecyclerView mGiftsRv;
 
+    private WishlistDetailViewModel mViewModel;
     private String mWishlistId;
 
     @Override
@@ -45,12 +47,12 @@ public class WishlistDetailActivity extends AppCompatActivity
         setTitle(R.string.wishlist_detail_title);
 
         //Initialize ViewModel
-        WishlistDetailViewModel viewModel = ViewModelProviders.of(this)
+        mViewModel = ViewModelProviders.of(this)
                 .get(WishlistDetailViewModel.class);
 
         //Initialize RecyclerView
         mGiftsRv.setLayoutManager(new LinearLayoutManager(this));
-        GiftsAdapter giftsAdapter = new GiftsAdapter(null, viewModel.getCurrentUserId(),this);
+        GiftsAdapter giftsAdapter = new GiftsAdapter(null, mViewModel.getCurrentUserId(),this);
         mGiftsRv.setAdapter(giftsAdapter);
 
         //Get the passed wishlistId
@@ -58,14 +60,14 @@ public class WishlistDetailActivity extends AppCompatActivity
         if (currentIntent.hasExtra(WISHLIST_ID_EXTRA)) {
             mWishlistId = currentIntent.getStringExtra(WISHLIST_ID_EXTRA);
 
-            viewModel.getWishList(mWishlistId).observe(this, wishList -> {
+            mViewModel.getWishList(mWishlistId).observe(this, wishList -> {
                 if (wishList != null) {
                     mEventTypeTv.setText(wishList.event_type);
                     mDateTv.setText(Utils.getDateStringFromMillis(wishList.event_time));
 
                     giftsAdapter.setGiftsList(wishList.gifts_list);
 
-                    viewModel.getUser(wishList.owner).observe(this, user -> {
+                    mViewModel.getUser(wishList.owner).observe(this, user -> {
                         if (user != null) {
                             mUserNameTv.setText(user.display_name);
                             Picasso.get().load(user.profile_picture)
@@ -92,29 +94,54 @@ public class WishlistDetailActivity extends AppCompatActivity
     @Override
     public void onShareButtonClicked(String giftId) {
         AlertDialog.Builder builder;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            builder = new AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_Alert);
-        } else {
-            builder = new AlertDialog.Builder(this);
-        }
-        builder.setTitle("Delete entry")
-                .setMessage("Are you sure you want to delete this entry?")
-                .setPositiveButton(R.string.share_positive_button, (dialog, which) -> {
-                    //TODO: Finish sharing
+        builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.sharing_confirmation_title)
+                .setMessage(R.string.sharing_confirmation_message)
+                .setPositiveButton(R.string.share_positive_button, (dialog, which) ->
 
-
-                })
-                .setIcon(android.R.drawable.ic_dialog_alert)
+                        mViewModel.shareInGift(mWishlistId, giftId,
+                        ((databaseError, databaseReference) -> {
+                    if (databaseError == null) {
+                        Snackbar.make(mGiftsRv,
+                                R.string.shared_in_gift_successfully,
+                                Snackbar.LENGTH_LONG).show();
+                    } else {
+                        Snackbar.make(mGiftsRv,
+                                R.string.failed_to_share_in_gift,
+                                Snackbar.LENGTH_LONG).show();
+                    }
+                })))
+                .setNegativeButton(android.R.string.no, null)
                 .show();
     }
 
     @Override
     public void onBuyCancelButtonClicked(String giftId) {
-        Toast.makeText(this, "Cancel buying this gift", Toast.LENGTH_LONG).show();
+        mViewModel.cancelBuyingGift(mWishlistId, giftId, ((databaseError, databaseReference) -> {
+            if (databaseError == null) {
+                Snackbar.make(mGiftsRv,
+                        R.string.canceled_buying_gift_successfully,
+                        Snackbar.LENGTH_LONG).show();
+            } else {
+                Snackbar.make(mGiftsRv,
+                        R.string.error_canceling,
+                        Snackbar.LENGTH_LONG).show();
+            }
+        }));
     }
 
     @Override
     public void onShareCancelButtonClicked(String giftId) {
-        Toast.makeText(this, "Cancel sharing this gift", Toast.LENGTH_LONG).show();
+        mViewModel.cancelSharingGift(mWishlistId, giftId, ((databaseError, databaseReference) -> {
+            if (databaseError == null) {
+                Snackbar.make(mGiftsRv,
+                        R.string.canceled_sharing_gift_successfully,
+                        Snackbar.LENGTH_LONG).show();
+            } else {
+                Snackbar.make(mGiftsRv,
+                        R.string.error_canceling,
+                        Snackbar.LENGTH_LONG).show();
+            }
+        }));
     }
 }
