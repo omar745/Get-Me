@@ -103,4 +103,11 @@
     <string name="confirm_button">Confirm</string>
     <string name="number_of_sharers_text">Sharing with %1$s friends</string>
 
+
+    <!--Share gift dialog's strings-->
+    <string name="sharing_confirmation_title">Are you sure?</string>
+    <string name="sharing_confirmation_message">Do you want to share in this gift?</string>
+    <string name="share_positive_button">Share</string>
+
+
 </resources>

@@ -1,8 +1,11 @@
 package com.mouris.mario.getme.ui.wishlist_detail_activity;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -86,8 +89,21 @@ public class WishlistDetailActivity extends AppCompatActivity
 
     @Override
     public void onShareButtonClicked(String giftId) {
-        DialogFragment buyGiftDialog = BuyGiftDialog.newInstance(giftId);
-        buyGiftDialog.show(getSupportFragmentManager(), BuyGiftDialog.DIALOG_TAG);
+        AlertDialog.Builder builder;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder = new AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_Alert);
+        } else {
+            builder = new AlertDialog.Builder(this);
+        }
+        builder.setTitle("Delete entry")
+                .setMessage("Are you sure you want to delete this entry?")
+                .setPositiveButton(R.string.share_positive_button, (dialog, which) -> {
+                    //TODO: Finish sharing
+                    
+
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
     }
 
     @Override
