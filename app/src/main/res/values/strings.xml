@@ -56,6 +56,8 @@
     <string name="save_wishlist">Save</string>
     <string name="wishlist_editor_title">Wishlist Editor</string>
     <string name="event_card_title">Event Description</string>
+    <string name="event_description">Please tell us what type of event you\'ll be having,
+        and when is it going to be held.</string>
     <string name="event_type_label">Event type:</string>
     <array name="event_types">
         <item>Birthday</item>
