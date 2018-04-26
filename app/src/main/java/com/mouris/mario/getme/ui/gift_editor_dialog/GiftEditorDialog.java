@@ -23,7 +23,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-//TODO: Fix glitch when keyboard shows (Wrap content scrollview)
 public class GiftEditorDialog extends DialogFragment {
     public static final String DIALOG_TAG = "gift_editor_dialog_tag";
 

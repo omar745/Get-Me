@@ -63,6 +63,24 @@ public class GiftsAdapter extends RecyclerView.Adapter<GiftsAdapter.GiftViewHold
         } else {
             giftVh.buyButton.setVisibility(View.GONE);
         }
+
+        giftVh.buyButton.setOnClickListener(view -> {
+            GiftViewHolder.BuyButtonState buttonState = giftVh.buyButtonState;
+            switch (buttonState) {
+                case buyer_state:
+                    mListener.onBuyCancelButtonClicked(gift.id);
+                    break;
+                case sharer_state:
+                    mListener.onShareCancelButtonClicked(gift.id);
+                    break;
+                case open_for_buying_state:
+                    mListener.onBuyButtonClicked(gift.id);
+                    break;
+                case open_for_sharing_state:
+                    mListener.onShareButtonClicked(gift.id);
+                    break;
+            }
+        });
     }
 
     @Override
@@ -156,10 +174,13 @@ public class GiftsAdapter extends RecyclerView.Adapter<GiftsAdapter.GiftViewHold
         }
 
         public interface OnItemClickListener {
-
+            void onBuyButtonClicked(String giftId);
+            void onShareButtonClicked(String giftId);
+            void onBuyCancelButtonClicked(String giftId);
+            void onShareCancelButtonClicked(String giftId);
         }
 
-        enum BuyButtonState {
+        public enum BuyButtonState {
             buyer_state,
             sharer_state,
             open_for_sharing_state,

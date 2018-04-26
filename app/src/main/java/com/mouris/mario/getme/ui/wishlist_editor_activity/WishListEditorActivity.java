@@ -31,7 +31,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class WishListEditorActivity extends AppCompatActivity
-        implements GiftsAdapter.GiftViewHolder.OnItemClickListener, GiftEditorDialog.OnGiftSave {
+        implements GiftEditorDialog.OnGiftSave {
 
     public static final String WISH_LIST_ID_EXTRA = "wish_list_extra_key";
 
@@ -58,7 +58,7 @@ public class WishListEditorActivity extends AppCompatActivity
 
         //Initiate gifts recyclerView
         mGiftsRv.setLayoutManager(new LinearLayoutManager(this));
-        mGiftsAdapter = new GiftsAdapter(null, null, this);
+        mGiftsAdapter = new GiftsAdapter(null, null, null);
         mGiftsRv.setAdapter(mGiftsAdapter);
 
         //Check if in editing or creation mode (Check if WishList is null first)

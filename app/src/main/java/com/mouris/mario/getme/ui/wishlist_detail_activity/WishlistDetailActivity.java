@@ -2,15 +2,18 @@ package com.mouris.mario.getme.ui.wishlist_detail_activity;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.mouris.mario.getme.R;
 import com.mouris.mario.getme.ui.adapters.GiftsAdapter;
+import com.mouris.mario.getme.ui.buy_gift_dialog.BuyGiftDialog;
 import com.mouris.mario.getme.utils.Utils;
 import com.squareup.picasso.Picasso;
 
@@ -72,5 +75,28 @@ public class WishlistDetailActivity extends AppCompatActivity
         } else {
             throw new UnsupportedOperationException("Cannot launch wishlist detail without id");
         }
+    }
+
+    //Gift management buttons
+    @Override
+    public void onBuyButtonClicked(String giftId) {
+        DialogFragment buyGiftDialog = BuyGiftDialog.newInstance(giftId);
+        buyGiftDialog.show(getSupportFragmentManager(), BuyGiftDialog.DIALOG_TAG);
+    }
+
+    @Override
+    public void onShareButtonClicked(String giftId) {
+        DialogFragment buyGiftDialog = BuyGiftDialog.newInstance(giftId);
+        buyGiftDialog.show(getSupportFragmentManager(), BuyGiftDialog.DIALOG_TAG);
+    }
+
+    @Override
+    public void onBuyCancelButtonClicked(String giftId) {
+        Toast.makeText(this, "Cancel buying this gift", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onShareCancelButtonClicked(String giftId) {
+        Toast.makeText(this, "Cancel sharing this gift", Toast.LENGTH_LONG).show();
     }
 }

@@ -96,4 +96,11 @@
     <string name="empty_gift_name_toast">Cannot save gift with out name</string>
     <string name="gift_saved_successfully">Gift saved successfully</string>
 
+
+    <!--Buy gift dialog's strings-->
+    <string name="buy_gift_title">Buy this gift</string>
+    <string name="sharing_checkbox_label">Share others in this gift</string>
+    <string name="confirm_button">Confirm</string>
+    <string name="number_of_sharers_text">Sharing with %1$s friends</string>
+
 </resources>
