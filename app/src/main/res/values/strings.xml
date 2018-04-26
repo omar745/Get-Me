@@ -102,6 +102,8 @@
     <string name="sharing_checkbox_label">Share others in this gift</string>
     <string name="confirm_button">Confirm</string>
     <string name="number_of_sharers_text">Sharing with %1$s friends</string>
+    <string name="bought_gift_successfully">Bought gift successfully</string>
+    <string name="error_buying_gift">There was an error buying gift, try again later</string>
 
 
     <!--Share gift dialog's strings-->

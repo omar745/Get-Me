@@ -21,6 +21,15 @@ public class ListUtils {
     }
 
     static public List<Gift> getGiftsListFromMap(HashMap<String, Gift> giftsMap) {
-        return new ArrayList<>(giftsMap.values());
+        List<Gift> giftsList = new ArrayList<>();
+
+        for (String giftKey : giftsMap.keySet()) {
+            Gift gift = giftsMap.get(giftKey);
+            gift.id = giftKey;
+
+            giftsList.add(gift);
+        }
+
+        return giftsList;
     }
 }

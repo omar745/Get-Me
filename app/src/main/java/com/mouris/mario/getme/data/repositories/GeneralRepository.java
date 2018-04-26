@@ -7,6 +7,7 @@ import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
 import com.facebook.Profile;
 import com.google.firebase.database.DatabaseReference;
+import com.mouris.mario.getme.data.actors.Buyer;
 import com.mouris.mario.getme.data.actors.Gift;
 import com.mouris.mario.getme.data.actors.User;
 import com.mouris.mario.getme.data.actors.Wishlist;
@@ -99,6 +100,11 @@ public class GeneralRepository {
                                        DatabaseReference.CompletionListener completionListener) {
         String wishListId =
                 mWishListsRepository.pushWishListToFirebase(wishlist, completionListener);
+    }
+
+    public void setBuyerForGift(String wishlistId, String giftId, Buyer buyer,
+                                DatabaseReference.CompletionListener completionListener) {
+        mWishListsRepository.setBuyerForGift(wishlistId, giftId, buyer, completionListener);
     }
 
 

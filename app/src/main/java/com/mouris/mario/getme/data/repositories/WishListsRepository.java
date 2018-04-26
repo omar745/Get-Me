@@ -7,6 +7,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.mouris.mario.getme.data.FirebaseQueryLiveData;
+import com.mouris.mario.getme.data.actors.Buyer;
 import com.mouris.mario.getme.data.actors.Gift;
 import com.mouris.mario.getme.data.actors.Wishlist;
 
@@ -147,5 +148,11 @@ public class WishListsRepository {
         }
         mWishListsDbReference.child(wishListId)
                 .child(Wishlist.GIFTS_LIST).child(gift.id).setValue(gift, completionListener);
+    }
+
+    public void setBuyerForGift(String wishlistId, String giftId, Buyer buyer,
+                                DatabaseReference.CompletionListener completionListener) {
+        mWishListsDbReference.child(wishlistId).child(Wishlist.GIFTS_LIST).child(giftId)
+                .child(Gift.BUYER_INFO).setValue(buyer, completionListener);
     }
 }

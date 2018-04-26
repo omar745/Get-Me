@@ -3,11 +3,13 @@ package com.mouris.mario.getme.data.actors;
 import java.util.HashMap;
 
 public class Gift extends Actor {
+    public static final String BUYER_INFO = "buyer_info";
 
     public String gift_name, description, web_link, brand;
     public Buyer buyer_info;
 
-    public Gift() {}
+    public Gift() {
+    }
 
     public Gift(String gift_name, String web_link,
                 String brand, String description) {
@@ -34,22 +36,5 @@ public class Gift extends Actor {
 
     public boolean isSharer(String userId) {
         return buyer_info.sharer_ids.containsKey(userId);
-    }
-
-    //The gift buyer's class
-    public class Buyer {
-        public static final String BUYER_ID = "buyer_id";
-        public static final String SHARING_ENABLED = "sharing_enabled";
-        public static final String NUMBER_OF_SHARERS_ALLOWED = "number_of_sharers_allowed";
-        public static final String SHARER_IDS = "sharer_ids";
-
-        public String buyer_id;
-        public boolean sharing_enabled;
-        public int number_of_sharers_allowed;
-        public HashMap<String, Boolean> sharer_ids;
-
-        public Buyer() {
-            sharer_ids = new HashMap<>();
-        }
     }
 }

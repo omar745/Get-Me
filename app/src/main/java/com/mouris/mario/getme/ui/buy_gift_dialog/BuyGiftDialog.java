@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mouris.mario.getme.R;
 
@@ -29,6 +30,7 @@ import butterknife.OnClick;
 
 public class BuyGiftDialog extends DialogFragment {
     public static final String DIALOG_TAG = "buy_gift_dialog_tag";
+    private static final String WISHLIST_ID_ARG = "wishlist_id_arg";
     private static final String GIFT_ID_ARG = "gift_id_arg";
 
     @BindView(R.id.sharing_checkBox) CheckBox mSharingCb;
@@ -38,15 +40,17 @@ public class BuyGiftDialog extends DialogFragment {
     @BindView(R.id.confirm_button) Button mConfirmButton;
 
     private BuyGiftViewModel mViewModel;
+    private String mWishlistId;
     private String mGiftId;
 
     public BuyGiftDialog() {
     }
 
-    public static BuyGiftDialog newInstance(String giftId) {
+    public static BuyGiftDialog newInstance(String wishlistId, String giftId) {
         BuyGiftDialog buyDialog = new BuyGiftDialog();
 
         Bundle args = new Bundle();
+        args.putString(WISHLIST_ID_ARG, wishlistId);
         args.putString(GIFT_ID_ARG, giftId);
         buyDialog.setArguments(args);
 
@@ -84,6 +88,7 @@ public class BuyGiftDialog extends DialogFragment {
         }
 
         if (getArguments() != null) {
+            mWishlistId = getArguments().getString(WISHLIST_ID_ARG);
             mGiftId = getArguments().getString(GIFT_ID_ARG);
         }
 
@@ -139,7 +144,15 @@ public class BuyGiftDialog extends DialogFragment {
 
     @OnClick(R.id.confirm_button)
     void onConfirmButtonClicked() {
-
+        mViewModel.confirmBuyingGift(mWishlistId, mGiftId, ((databaseError, databaseReference) -> {
+            if (databaseError == null) {
+                Toast.makeText(getContext(), R.string.bought_gift_successfully,
+                        Toast.LENGTH_LONG).show();
+                dismiss();
+            } else {
+                Toast.makeText(getContext(), R.string.error_buying_gift, Toast.LENGTH_LONG).show();
+            }
+        }));
     }
 
 }

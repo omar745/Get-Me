@@ -34,6 +34,8 @@ public class WishlistDetailActivity extends AppCompatActivity
     @BindView(R.id.date_textView) TextView mDateTv;
     @BindView(R.id.gifts_recyclerView) RecyclerView mGiftsRv;
 
+    private String mWishlistId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,9 +56,9 @@ public class WishlistDetailActivity extends AppCompatActivity
         //Get the passed wishlistId
         Intent currentIntent = getIntent();
         if (currentIntent.hasExtra(WISHLIST_ID_EXTRA)) {
-            String wishlistId = currentIntent.getStringExtra(WISHLIST_ID_EXTRA);
+            mWishlistId = currentIntent.getStringExtra(WISHLIST_ID_EXTRA);
 
-            viewModel.getWishList(wishlistId).observe(this, wishList -> {
+            viewModel.getWishList(mWishlistId).observe(this, wishList -> {
                 if (wishList != null) {
                     mEventTypeTv.setText(wishList.event_type);
                     mDateTv.setText(Utils.getDateStringFromMillis(wishList.event_time));
@@ -83,7 +85,7 @@ public class WishlistDetailActivity extends AppCompatActivity
     //Gift management buttons
     @Override
     public void onBuyButtonClicked(String giftId) {
-        DialogFragment buyGiftDialog = BuyGiftDialog.newInstance(giftId);
+        DialogFragment buyGiftDialog = BuyGiftDialog.newInstance(mWishlistId, giftId);
         buyGiftDialog.show(getSupportFragmentManager(), BuyGiftDialog.DIALOG_TAG);
     }
 
@@ -99,7 +101,7 @@ public class WishlistDetailActivity extends AppCompatActivity
                 .setMessage("Are you sure you want to delete this entry?")
                 .setPositiveButton(R.string.share_positive_button, (dialog, which) -> {
                     //TODO: Finish sharing
-                    
+
 
                 })
                 .setIcon(android.R.drawable.ic_dialog_alert)
