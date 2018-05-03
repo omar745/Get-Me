@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.transition.Slide;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,6 +46,16 @@ public class WishlistDetailActivity extends AppCompatActivity
         ButterKnife.bind(this);
 
         setTitle(R.string.wishlist_detail_title);
+
+        //Set enter and exit animation
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Slide explode = new Slide();
+            explode.excludeTarget(mProfileIv, true);
+            explode.excludeTarget(android.R.id.navigationBarBackground, true);
+
+            getWindow().setEnterTransition(explode);
+            getWindow().setExitTransition(explode);
+        }
 
         //Initialize ViewModel
         mViewModel = ViewModelProviders.of(this)
