@@ -45,7 +45,7 @@
         <item quantity="one">%1$s Gift added</item>
         <item quantity="other">%1$s Gifts added</item>
     </plurals>
-    <string name="wishlist_statement" formatted="false">has a %1$s event on %2$s</string>
+    <string name="wishlist_statement" formatted="false">%1$s event on %2$s</string>
     <string name="empty_friends_wishlists">Your friends haven\'t posted any wishlists yet.</string>
     <string name="empty_my_wishlists">You haven\'t posted any wishlists yet.</string>
 
