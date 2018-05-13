@@ -21,4 +21,16 @@ public class Wishlist extends Actor {
         this.is_active = is_active;
         this.gifts_list = gifts_list;
     }
+
+    public int getRemainingGiftsCount() {
+        int remainingGiftsCount = 0;
+        for (String keyId : gifts_list.keySet()) {
+            Gift gift = gifts_list.get(keyId);
+            if (!gift.isBought() || gift.isOpenForSharing()) {
+                remainingGiftsCount++;
+            }
+        }
+
+        return remainingGiftsCount;
+    }
 }

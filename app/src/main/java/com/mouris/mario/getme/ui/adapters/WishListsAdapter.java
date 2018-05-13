@@ -78,7 +78,8 @@ public class WishListsAdapter extends RecyclerView.Adapter<WishListsAdapter.Wish
         if (mShowGiftsRemaining) {
             wishListVh.remainingGiftsTv.setText(
                     context.getString(R.string.remaining_gifts,
-                            String.valueOf(wishlist.gifts_list.size()),
+                            String.valueOf(
+                                    wishlist.gifts_list.size() - wishlist.getRemainingGiftsCount()),
                             String.valueOf(wishlist.gifts_list.size())));
         } else {
             wishListVh.remainingGiftsTv.setText(
