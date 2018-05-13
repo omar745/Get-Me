@@ -8,6 +8,7 @@ import com.facebook.GraphRequest;
 import com.facebook.Profile;
 import com.google.firebase.database.DatabaseReference;
 import com.mouris.mario.getme.data.actors.Buyer;
+import com.mouris.mario.getme.data.actors.EventImage;
 import com.mouris.mario.getme.data.actors.Gift;
 import com.mouris.mario.getme.data.actors.User;
 import com.mouris.mario.getme.data.actors.Wishlist;
@@ -25,6 +26,7 @@ public class GeneralRepository {
 
     private UsersRepository mUsersRepository;
     private WishListsRepository mWishListsRepository;
+    private EventImagesRepository mEventImagesRepository;
 
     private static GeneralRepository sInstance;
 
@@ -38,6 +40,7 @@ public class GeneralRepository {
     private GeneralRepository() {
         mUsersRepository = UsersRepository.getInstance();
         mWishListsRepository = WishListsRepository.getInstance();
+        mEventImagesRepository = EventImagesRepository.getInstance();
     }
 
 
@@ -121,6 +124,18 @@ public class GeneralRepository {
     public void cancelSharingGift(String wishlistId, String giftId, String userId,
                                   DatabaseReference.CompletionListener completionListener) {
         mWishListsRepository.cancelSharingGift(wishlistId, giftId, userId, completionListener);
+    }
+
+
+    //----------------------------------------------------------------------------------------------
+    //Event image Code
+    public LiveData<List<EventImage>> getFriendsImagesLiveData(Set<String> friendsIds) {
+        return mEventImagesRepository.getFriendsImagesLiveData(friendsIds);
+    }
+
+    public void pushEventImageToFirebase(EventImage eventImage,
+                                         DatabaseReference.CompletionListener completionListener) {
+        mEventImagesRepository.pushEventImageToFirebase(eventImage, completionListener);
     }
 
 
