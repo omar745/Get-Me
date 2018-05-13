@@ -18,6 +18,7 @@
     <string name="friends_title">Friends</string>
     <string name="logout">Logout</string>
     <string name="add_wishlist">Add Wishlist</string>
+    <string name="upload_image">Upload Image</string>
 
 
     <!--User item's strings-->

@@ -123,7 +123,10 @@ public class MainActivity extends AppCompatActivity {
         } else if (item.getItemId() == R.id.action_add_wishlist) {
             Intent addWishListIntent = new Intent(this, WishListEditorActivity.class);
             startActivity(addWishListIntent);
+        } else if (item.getItemId() == R.id.action_upload_image) {
+
         }
+        
         return super.onOptionsItemSelected(item);
     }
 }

@@ -9,6 +9,12 @@
         app:showAsAction="ifRoom" />
 
     <item
+        android:id="@+id/action_upload_image"
+        android:title="@string/upload_image"
+        android:icon="@drawable/ic_camera"
+        app:showAsAction="ifRoom" />
+
+    <item
         android:id="@+id/action_logout"
         android:title="@string/logout"
         android:icon="@drawable/ic_logout"
