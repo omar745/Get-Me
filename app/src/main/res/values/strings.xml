@@ -50,6 +50,10 @@
     <string name="empty_my_wishlists">You haven\'t posted any wishlists yet.</string>
 
 
+    <!--Event image item's strings-->
+    <string name="event_image_label">%1$s\'s %2$s event</string>
+
+
     <!--Friends fragment's strings-->
     <string name="muted_friend_successfully">Muted friend successfully</string>
     <string name="unmuted_friend_successfully">Unmuted friend successfully</string>
