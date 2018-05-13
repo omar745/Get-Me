@@ -124,4 +124,11 @@
     <string name="share_positive_button">Share</string>
 
 
+    <!--Upload image dialog's strings-->
+    <string name="image_caption">Write a small caption here…</string>
+    <string name="upload_image_title">Upload Image</string>
+    <string name="upload_image_button">Upload Image</string>
+    <string name="empty_image_message">You need to upload an image first</string>
+    <string name="error_uploading_image">There was an error uploading image, please try again</string>
+
 </resources>

@@ -16,6 +16,7 @@ import com.mouris.mario.getme.ui.adapters.MainFragmentsPagerAdapter;
 import com.mouris.mario.getme.ui.friends_fragment.FriendsFragment;
 import com.mouris.mario.getme.ui.home_fragment.HomeFragment;
 import com.mouris.mario.getme.ui.my_wishlists_fragment.MyWishListsFragment;
+import com.mouris.mario.getme.ui.upload_image_dialog.UploadImageDialog;
 import com.mouris.mario.getme.ui.welcome_screens.FacebookLoginActivity;
 import com.mouris.mario.getme.ui.wishlist_editor_activity.WishListEditorActivity;
 
@@ -124,9 +125,10 @@ public class MainActivity extends AppCompatActivity {
             Intent addWishListIntent = new Intent(this, WishListEditorActivity.class);
             startActivity(addWishListIntent);
         } else if (item.getItemId() == R.id.action_upload_image) {
-
+            UploadImageDialog uploadImageDialog = new UploadImageDialog();
+            uploadImageDialog.show(getSupportFragmentManager(), UploadImageDialog.DIALOG_TAG);
         }
-        
+
         return super.onOptionsItemSelected(item);
     }
 }

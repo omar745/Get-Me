@@ -1,12 +1,18 @@
 package com.mouris.mario.getme.data.repositories;
 
 import android.arch.lifecycle.LiveData;
+import android.net.Uri;
 import android.util.Log;
 
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
 import com.facebook.Profile;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.mouris.mario.getme.data.actors.Buyer;
 import com.mouris.mario.getme.data.actors.EventImage;
 import com.mouris.mario.getme.data.actors.Gift;
@@ -136,6 +142,15 @@ public class GeneralRepository {
     public void pushEventImageToFirebase(EventImage eventImage,
                                          DatabaseReference.CompletionListener completionListener) {
         mEventImagesRepository.pushEventImageToFirebase(eventImage, completionListener);
+    }
+
+    public void uploadEventImage(Uri imageUri,
+                                   OnCompleteListener<UploadTask.TaskSnapshot> listener) {
+        StorageReference eventImagesRef =
+                FirebaseStorage.getInstance().getReference().child("event_images");
+
+        String pictureId = FirebaseDatabase.getInstance().getReference().push().getKey();
+        eventImagesRef.child(pictureId).putFile(imageUri).addOnCompleteListener(listener);
     }
 
 

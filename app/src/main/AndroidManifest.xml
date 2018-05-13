@@ -40,6 +40,9 @@
         </activity>
         <!-- End of facebook's code -->
 
+
+        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity" />
+
         <activity
             android:name=".ui.welcome_screens.SplashActivity"
             android:theme="@style/AppTheme.Launcher">
